@@ -8,11 +8,10 @@ Scans one or more directories of ZIP, CBR or RAR archives and stores lists of im
 Requirements
 ------------
 
-* zipfile
-* rarfile
-* ImageMagick _convert_
+* See Yomiko-reqs.txt pip requirements file for a list of Python prerequisites.
+* ImageMagick _convert_ for thumbnail generation.
 
-Yomiko runs on the _web2py_ Python web framework.
+Yomiko runs on the _Flask_ Python web framework.
 
 Options
 -------
