@@ -11,7 +11,7 @@ Use SQLite3 database for initial development and testing
 
 import zipfile
 import rarfile
-import sqllite3
+import sqlite3
 
 from datetime import datetime
 from file_utils import readConfig

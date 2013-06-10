@@ -1,0 +1,6 @@
+Load Bootstrap and associated libraries from CDN:
+
+//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/js/bootstrap.min.js
+//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js
+
+See cdnjs.com for other libraries.
