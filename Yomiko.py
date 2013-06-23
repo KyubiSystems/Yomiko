@@ -1,34 +1,24 @@
-#!/usr/bin/env python
-
 """
-Yomiko -- v0.01
+Yomiko -- v0.02
 
 (c) 2013 -- KyubiSystems
 
-Web-based comics & doujinshi reader
-Use SQLite3 database for initial development and testing
+Web-based comics and doujinshi reader
+Use SQLlite3 database for initial development and testing
 """
 
 import zipfile
 import rarfile
 import sqlite3
 
-from datetime import datetime
-from file_utils import readConfig
-from string import Template
+from flask import Flask
+app = Flask(__name__)
 
-# read config file
+app.config.from_object('config')
 
-Config = readConfig('config.json')
+print app.config['DATABASE_URI']
 
-# initialise path configuration
-
-filePath = Config['filePath']
-cachePath = Config['cachePath']
-
-# Print Content-Type: header + blank line
-print "Content-Type: text/html"
-print 
+# CLASS DEFINITION ============================================
 
 class Directory:
     """Directory(path) -- instantiate data directory object"""
@@ -106,4 +96,6 @@ class Tagset:
     def delTag():
         pass
 
-    
+# END CLASS DEFINITION ========================================   
+
+
