@@ -1,0 +1,14 @@
+<html>
+<head>
+{% if title %}
+<title>{{title}} - Yomiko</title>
+{% else %}
+<title>Yomiko</title>
+{% endif %}
+</head>
+<body>
+<div>Yomiko: <a href="/index">Home</a></div>
+<hr>
+{% block content %}{% endblock %}
+</body>
+</html>
