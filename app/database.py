@@ -1,29 +1,58 @@
-import sqlite3
-from flask import g
+from flask import Flask
+from flask.ext.sqlalchemy import SQLAlchemy
+from datetime import datetime
 
-DATABASE = './db/database.db' # Should set this in config
+# initialise SQLAlchemy object
 
-# Database initialisation
-def get_db():
-    db = getattr(g, '_database', None)
-    if db is None:
-        db = g._database = connect_to_database()
-    return db
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///./db/database.db"
+db = SQLAlchemy(app)
 
-# Database close
-@app.teardown_appcontext
-def close_connection(exception):
-    db = getattr(g, '_database', None)
-    if db is not None:
-        db.close()
+# begin model definition
 
-# Declare row_factory
-# Where is this supposed to go?
-db.row_factory - sqlite3.Row
+# define Volume model class
 
-# General DB query function
-def query_db(query, args=(), one=False):
-    cur = get_db().execute(query,args)
-    rv = cur.fetchall()
-    cur.close()
-    return (rv[0] if rv else None) if one else rv
+class Volume(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    title = db.Column(db.String(256))
+    md5 = db.Column(db.String(100))
+    type = db.Column(db.String(10))
+    num = db.Column(db.Integer)
+    added = db.Column(db.DateTime)
+    viewed = db.Column(db.DateTime)
+    comments = db.Column(db.Text)
+
+    def __init__(self, title):
+        self.title = title
+
+    def __repr__(self):
+        return '<Volume %r>' % self.title
+
+# define Tag model class
+
+class Tag(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(100))
+    descr = db.Column(db.String(256))
+
+    def __init__(self, name, descr):
+        self.name = name
+        self.descr = descr
+
+    def __repr__(self):
+        return '<Tag %r>' % self.name
+
+# define Image model class
+
+class Image(db.Model):
+    volume_id = db.Column(db.Integer, db.ForeignKey('volume.id')) # Foreign Key field
+    id = db.Column(db.Integer)
+    path = db.Column(db.String(512))
+    thumb = db.Column(db.String(512))
+
+    def __init__(self, path, thumb):
+        self.path = path
+        self.thumb = thumb
+
+    def __repr__(self):
+        return'<Image %r>' % self.id

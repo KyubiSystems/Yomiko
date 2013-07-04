@@ -1,0 +1,12 @@
+Add routes to Flask
+-------------------
+
+/		front page with logo
+/list[/pg]	display list of titles (#page)
+/thumbs[/pg] 	display titles as thumbs (#page)
+/tags		display tag cloud?
+/tags/id/id/id	filter list by multiple tags
+/settings	modify application config
+/title/id[/pg]	display title #id (#page)
+/page/id/pg	display #page of volume #id
+
