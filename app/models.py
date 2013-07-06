@@ -50,8 +50,8 @@ class Tag(Base):
 class Image(Base):
     __tablename__ = 'image'
 
+    id = Column(Integer, primary_key = True)
     volume_id = Column(Integer, ForeignKey('volume.id')) # Foreign Key field
-    id = Column(Integer)
     path = Column(String(512))
     thumb = Column(String(512))
 
