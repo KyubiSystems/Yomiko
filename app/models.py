@@ -4,7 +4,7 @@ from datetime import datetime
 
 # define Volume model class
 
-class Volume(db.Model):
+class Volume(Base):
     __tablename__ = 'volume'
 
     id = Column(Integer, primary_key = True)
@@ -24,7 +24,7 @@ class Volume(db.Model):
 
 # define Tag model class
 
-class Tag(db.Model):
+class Tag(Base):
     __tablename__ = 'tag'
 
     id = Column(Integer, primary_key = True)
@@ -40,7 +40,7 @@ class Tag(db.Model):
 
 # define Image model class
 
-class Image(db.Model):
+class Image(Base):
     __tablename__ = 'image'
 
     volume_id = Column(Integer, ForeignKey('volume.id')) # Foreign Key field
