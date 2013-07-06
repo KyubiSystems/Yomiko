@@ -2,6 +2,10 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, Integer, String, DateTime, Text
 from datetime import datetime
 
+# declare base model class
+
+Base = declarative_base()
+
 # define Volume model class
 
 class Volume(Base):
