@@ -19,9 +19,15 @@ rel="stylesheet">
 <!-- begin Font Awesome CDN -->
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
 <!-- end Font Awesome CDN -->
-
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
+
+<!-- start main body text -->
+<div class="container">
+<div class="row">
+<div class="span12">
+
 <div class="navbar navbar-inverse">
   <div class="navbar-inner">
     <div class="container">
@@ -33,23 +39,52 @@ rel="stylesheet">
         <span class="icon-bar"></span>
       </a>
  
-      <!-- Be sure to leave the brand out there if you want it shown -->
+      <!-- brand name: can we put a logo here? -->
       <a class="brand" href="#">Yomiko</a>
- 
-      <!-- Everything you want hidden at 940px or less, place within here -->
-      <div class="nav-collapse collapse">
-        <!-- .nav, .navbar-search, .navbar-form, etc -->
+
+      <div class="naw-collapse">
+	<ul class="nav">
+	  <li><a accesskey="H" href="/">Home</a></li>
+
+	  <li class="dropdown">
+	    <a href="#" class="dropdown-toggle" data-toggle="dropdown">View <b class="caret"></b></a>
+	    <ul class="dropdown-menu">
+	      <li><a accesskey="L" href="/view/list">View as List</a></li>
+	      <li><a accesskey="T" href="/view/thumbs">View as Thumbs</a></li>
+	    </ul>
+	  </li>
+
+	  <li class="dropdown">
+	    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sort <b class="caret"></b></a>
+	    <ul class="dropdown-menu">
+	      <li><a href="/sort/name">Sort by Name</a></li>
+	      <li><a href="/sort/date">Sort by Date</a></li>
+	      <li><a href="/sort/size">Sort by Size</a></li>
+	    </ul>
+	  </li>
+
+	  <li class="dropdown">
+	    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tags <b class="caret"></b></a>
+	    <ul class="dropdown-menu">
+	      <li><a href="/tags">Show Tags</a></li>
+	      <li><a href="/tags/add">Add Tag</a></li>
+	    </ul>
+	  </li>
+
+          <li><a href="/settings">Settings</a></li>
+	</ul>
       </div>
- 
     </div>
   </div>
-</div>
-<div>Yomiko: <a href="/index">Home</a></div>
+  
+<h1>Yomiko: <a href="/index">Home</a></h1>
 <hr>
 {% block content %}{% endblock %}
-<!-- place javascript at end to speed page loading -->
+</div>
+</div>
+</div>
+<!-- end main body text -->
 <script src="http://code.jquery.com/jquery.js"></script>
-<script
-src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
 </body>
 </html>

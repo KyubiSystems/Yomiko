@@ -15,3 +15,7 @@ Add routes to Flask
 /title/id[/pg]	display title #id (#page)
 /page/id/pg	display #page of volume #id
 
+Hotkeys handling for keyboard shortcuts
+---------------------------------------
+
+https://github.com/tzuryby/jquery.hotkeys
