@@ -5,9 +5,6 @@ import rarfile
 import os
 import fnmatch
 
-from glob import glob as search
-
-
 fileroot = '~/Downloads/'
 fileroot = os.path.expanduser(fileroot)
 
