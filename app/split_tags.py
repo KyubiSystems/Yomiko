@@ -9,14 +9,15 @@ data = """[Null (nyanpoun)] Unnamed [Strike Witches](English)(Trinity Translatio
 # crop filename extension
 data = os.path.splitext(os.path.basename(data))[0]
 
-data = re.sub('[\(\[]','|',data)
-data = re.sub('[\)\]]','|',data)
-
-print data
+# substitute all brackets with pipes
+data = re.sub('[\(\[\)\]\{\}]','|',data)
 
 # split by pipes, dropping empty entries
 tags = re.split('\|', data)
 tags = filter(None, tags)
+
+# Strip whitespace from tags
+tags = [t.strip() for t in tags]
 
 # return list of tags
 print tags
