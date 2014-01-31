@@ -1,9 +1,11 @@
-Flask==0.9
-Flask-Login==0.2.3
-Flask-SQLAlchemy==0.16
-Jinja2==2.7
+Flask==0.10.1
+Flask-Login==0.2.9
+Jinja2==2.7.1
 MarkupSafe==0.18
-SQLAlchemy==0.8.1
-Werkzeug==0.8.3
+Pillow==2.3.0
+Werkzeug==0.9.4
+itsdangerous==0.23
+peewee==2.2.0
+pyparsing==2.0.1
 rarfile==2.6
 wsgiref==0.1.2
