@@ -9,7 +9,8 @@ Requirements
 ------------
 
 * See Yomiko-reqs.txt pip requirements file for a list of Python prerequisites.
-* ImageMagick _convert_ for thumbnail generation.
+* A database, SQLite3 by default.
+* Pillow (Python Imaging Library fork) with libjpeg support for thumbnail generation.
 
 Yomiko runs on the _Flask_ Python web framework.
 
