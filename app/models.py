@@ -1,63 +1,32 @@
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, DateTime, Text
-from sqlalchemy import ForeignKey
-from sqlalchemy.orm import relationship, backref
+#!/usr/bin/env python
 
-from datetime import datetime
+from config import *
+from peewee import *
+import datetime
 
-# declare base model class
+# define database
+db = SqliteDatabase(DB_FILE)
 
-Base = declarative_base()
+# create base model class that application models will extend
 
-# define Volume model class
+class BaseModel(Model):
+    class Meta:
+        database = db
 
-class Volume(Base):
-    __tablename__ = 'volume'
+class Volume(BaseModel):
+    title = CharField()
+    md5 = CharField()
+    type = CharField()
+    num = IntegerField()
+    added = DateTimeField(default=datetime.datetime.now)
+    viewed = DateTimeField(default=datetime.datetime.now)
+    comments = TextField()
 
-    id = Column(Integer, primary_key = True)
-    title = Column(String(256))
-    md5 = Column(String(100))
-    type = Column(String(10))
-    num = Column(Integer)
-    added = Column(DateTime)
-    viewed = Column(DateTime)
-    comments = Column(Text)
+class Tag(BaseModel):
+    name = CharField()
+    descr = CharField()
 
-    def __init__(self, title):
-        self.title = title
-
-    def __repr__(self):
-        return '<Volume %r>' % self.title
-
-# define Tag model class
-
-class Tag(Base):
-    __tablename__ = 'tag'
-
-    id = Column(Integer, primary_key = True)
-    name = Column(String(100))
-    descr = Column(String(256))
-
-    def __init__(self, name, descr):
-        self.name = name
-        self.descr = descr
-
-    def __repr__(self):
-        return '<Tag %r>' % self.name
-
-# define Image model class
-
-class Image(Base):
-    __tablename__ = 'image'
-
-    id = Column(Integer, primary_key = True)
-    volume_id = Column(Integer, ForeignKey('volume.id')) # Foreign Key field
-    path = Column(String(512))
-    thumb = Column(String(512))
-
-    def __init__(self, path, thumb):
-        self.path = path
-        self.thumb = thumb
-
-    def __repr__(self):
-        return'<Image %r>' % self.id
+class Image(BaseModel):
+    volume = ForeignKeyField(Volume, related_name='images')
+    path = CharField()
+    thumb = CharField(max_length=512)
