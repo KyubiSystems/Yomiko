@@ -14,3 +14,10 @@ INPUT_PATH = os.path.expanduser('~/Downloads/')
 
 # Set path for downloaded image cache
 CACHE_PATH = APP_PATH + '/cache/'
+
+# Set path for thumbnail store
+THUMB_PATH = APP_PATH + '/thumbnails/'
+
+# Set thumbnail default sizes
+THUMB_WIDTH = 90
+THUMB_HEIGHT = 125
