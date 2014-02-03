@@ -3,4 +3,4 @@
 #*
 .idea/
 venv.yo
-db/Yomiko.db
+app/db/Yomiko.db

@@ -26,6 +26,10 @@ class Tag(BaseModel):
     name = CharField()
     descr = CharField()
 
+class TagRelation(BaseModel):
+    relVolume = ForeignKeyField(Volume)
+    relTag = ForeignKeyField(Tag)
+
 class Image(BaseModel):
     volume = ForeignKeyField(Volume, related_name='images')
     page = IntegerField()
