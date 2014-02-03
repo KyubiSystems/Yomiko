@@ -1,0 +1,1 @@
+http://stackoverflow.com/questions/8876553/searching-for-items-in-a-many-to-many-relationship
