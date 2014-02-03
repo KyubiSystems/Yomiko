@@ -28,5 +28,6 @@ class Tag(BaseModel):
 
 class Image(BaseModel):
     volume = ForeignKeyField(Volume, related_name='images')
+    page = IntegerField()
     path = CharField()
     thumb = CharField(max_length=512)
