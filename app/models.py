@@ -1,5 +1,8 @@
 #!/usr/bin/env python
-
+"""
+Yomiko Comics Reader
+(c) 2014 Kyubi Systems: www.kyubi.co.uk
+"""
 from config import *
 from peewee import *
 import datetime
@@ -20,8 +23,8 @@ class Volume(BaseModel):
     md5 = CharField()
     type = CharField()
     num = IntegerField()
-    added = DateTimeField(default=datetime.datetime.now)
-    viewed = DateTimeField(default=datetime.datetime.now)
+    added = DateTimeField(default=datetime.datetime.now())
+    viewed = DateTimeField(default=datetime.datetime.now())
     comments = TextField()
 
 

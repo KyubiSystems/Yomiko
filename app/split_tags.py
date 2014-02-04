@@ -1,25 +1,32 @@
+"""
+Yomiko Comics Reader
+(c) 2014 Kyubi Systems: www.kyubi.co.uk
+"""
+
 import re
 import os.path
 
-# simple-minded method to separate doujin filenames into characteristic tags
+# simple-minded method to separate doujin file names into characteristic tags
 # tried pyparsing but decided wasn't worth the effort
 
-data = """[Null (nyanpoun)] Unnamed [Strike Witches](English)(Trinity Translations).zip"""
+def split_tags(data):
 
-# crop filename extension
-data = os.path.splitext(os.path.basename(data))[0]
+    #data = """[Null (nyanpoun)] Unnamed [Strike Witches](English)(Trinity Translations).zip"""
 
-# substitute all brackets with pipes
-data = re.sub('[\(\[\)\]\{\}]','|',data)
+    # crop filename extension
+    data = os.path.splitext(os.path.basename(data))[0]
 
-# split by pipes, dropping empty entries
-tags = re.split('\|', data)
-tags = filter(None, tags)
+    # substitute all brackets with pipes
+    data = re.sub('[\(\[\)\]\{\}]','|',data)
 
-# Strip whitespace from tags
-tags = [t.strip() for t in tags]
+    # split by pipes, dropping empty entries
+    tags = re.split('\|', data)
+    tags = filter(None, tags)
 
-# return list of tags
-print tags
+    # Strip whitespace from tags
+    tags = [t.strip() for t in tags]
+
+    # return list of tags
+    return tags
 
 

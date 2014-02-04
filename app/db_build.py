@@ -6,6 +6,7 @@ Yomiko Comics Reader
 from models import *
 
 
+# Create SQLite3 tables
 def create_db():
 
     # Define database
@@ -19,3 +20,8 @@ def create_db():
     Tag.create_table()
     Image.create_table()
     TagRelation.create_table()
+
+# Empty SQLite3 tables
+def truncate_db():
+    pass
+

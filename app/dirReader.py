@@ -1,8 +1,11 @@
 #!/usr/bin/env python
+"""
+Yomiko Comics Reader
+(c) 2014 Kyubi Systems: www.kyubi.co.uk
+"""
 
 import zipfile
 import rarfile
-import os
 import fnmatch
 from config import *
 

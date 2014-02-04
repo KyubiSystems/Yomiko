@@ -1,3 +1,8 @@
+"""
+Yomiko Comics Reader
+(c) 2014 Kyubi Systems: www.kyubi.co.uk
+"""
+
 from flask import render_template
 from app import app
 
