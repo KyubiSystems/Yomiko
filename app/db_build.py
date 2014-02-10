@@ -21,7 +21,25 @@ def create_db():
     Image.create_table()
     TagRelation.create_table()
 
+
 # Empty SQLite3 tables
 def truncate_db():
-    pass
+
+    # Define database
+    db = SqliteDatabase(DB_FILE)
+
+    # Connect to database
+    db.connect()
+
+    delete_query = Image.delete().where(True)
+    delete_query.execute()
+
+    delete_query = TagRelation.delete().where(True)
+    delete_query.execute()
+
+    delete_query = Tag.delete().where(True)
+    delete_query.execute()
+
+    delete_query = Volume.delete().where(True)
+    delete_query.execute()
 
