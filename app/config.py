@@ -25,3 +25,6 @@ THUMB_PATH = APP_PATH + '/thumbnails/'
 # Set thumbnail default sizes
 THUMB_WIDTH = 90
 THUMB_HEIGHT = 125
+
+# Set version string
+APP_VERSION = 'YomikoCR/0.0.2'

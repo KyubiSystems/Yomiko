@@ -3,8 +3,9 @@ Yomiko Comics Reader
 (c) 2014 Kyubi Systems: www.kyubi.co.uk
 """
 
-from flask import render_template
-from app import app
+from flask import Flask, render_template
+
+app = Flask(__name__)
 
 @app.route('/')
 @app.route('/index')
@@ -30,6 +31,12 @@ def title():
 @app.route('/page')
 def page():
     return render_template("page.html")
+
+# Test page
+
+@app.route('/hello')
+def hello_world():
+    return 'Hello world!'
 
 # Error handling
 
