@@ -26,6 +26,8 @@ class Volume(BaseModel):
     added = DateTimeField(default=datetime.datetime.now())
     viewed = DateTimeField(default=datetime.datetime.now())
     comments = TextField()
+    is_read = BooleanField(default=False)
+    is_favourite = BooleanField(default=False)
 
 
 class Tag(BaseModel):
@@ -41,5 +43,5 @@ class TagRelation(BaseModel):
 class Image(BaseModel):
     volume = ForeignKeyField(Volume, related_name='images')
     page = IntegerField()
-    path = CharField()
-    thumb = CharField(max_length=512)
+    file = CharField()
+    thumb_ok = BooleanField(default=False)  # Set True if thumbnail successfully generated

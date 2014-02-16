@@ -81,13 +81,21 @@ for f in zips:
         md5 = md5sum(INPUT_PATH+f)
 
         # Add volume to DB Volume table
+        vol = Volume.create(title=f, md5=md5, type='zip', num=zip_count, comments='')
 
         # Parse tags from filename, add to DB Tags table
         tags = tag.split_tags(f)
+        for t in tags:
+            # check if tag already exists, insert if not
+
+            # insert tag and volume id into TagRelation table
+            pass
 
         # Add pages to DB Image table
+        page = 0
         for z in zip_members:
-            pass
+            im = Image.create(volume=vol.id, page=page, file=z)
+            page += 1
 
         # Spawn greenlet processes to generate thumbnails
         # Display progress bars?
@@ -115,13 +123,21 @@ for f in rars:
         md5 = md5sum(INPUT_PATH+f)
 
         # Add volume to DB Volume table
+        vol = Volume.create(title=f, md5=md5, type='rar', num=rar_count, comments='')
 
         # Parse tags from filename, add to DB Tags table
         tags = tag.split_tags(f)
+        for t in tags:
+            # check if tag already exists, insert if not
+
+            # insert tag and volume id into TagRelation table
+            pass
 
         # Add pages to DB Image table
+        page = 0
         for r in rar_members:
-            pass
+            im = Image.create(volume=vol.id, page=page, file=r)
+            page += 1
 
         # Spawn greenlet processes to generate thumbnails
         # Display progress bars?
