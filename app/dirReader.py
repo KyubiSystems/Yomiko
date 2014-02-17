@@ -66,7 +66,8 @@ for f in zips:
     except zipfile.BadZipfile as e:
         raise Exception(u'"{}" is not a valid ZIP file! Error: {}'.format(f, e))
     except:
-        raise Exception('Unknown error: {}, ZIP extraction failed: {}').format(e, f)
+        print u'Unknown error: ZIP extraction failed: {}'.format(f)
+        raise
 
     zip_members = myzip.namelist()
     zip_members = filter(lambda x: is_image(x) is True, zip_members)
@@ -89,9 +90,13 @@ for f in zips:
         # Add tags to DB Tag table
         for t in tags:
             # check if tag already exists, insert if not
+            try:
+                new_tag = Tag.get(Tag.name == t)
+            except DoesNotExist:
+                new_tag = Tag.create(name=t, descr='')
 
             # insert tag and volume id into TagRelation table
-            pass
+            TagRelation.create(relVolume=vol.id, relTag=new_tag.id)
 
         # Add pages to DB Image table
         page = 0
@@ -103,6 +108,7 @@ for f in zips:
         # Display progress bars?
 
 # Scan individual RAR file
+# Need to refactor this to remove duplication
 for f in rars:
     print "Scanning RAR: "+f,
     try:
@@ -110,7 +116,8 @@ for f in rars:
     except (rarfile.BadRarFile, rarfile.NotRarFile) as e:
         raise Exception(u'"{}" is not a valid RAR file! Error: {}'.format(f, e))
     except:
-        raise Exception("Unknown error: {}, RAR extraction failed: {}").format(e, f)
+        print u'Unknown error: RAR extraction failed: {}'.format(f)
+        raise
 
     rar_members = myrar.namelist()
     rar_members = filter(lambda x: is_image(x) is True, rar_members)
@@ -133,9 +140,13 @@ for f in rars:
         # Add tags to DB Tags table
         for t in tags:
             # check if tag already exists, insert if not
+            try:
+                new_tag = Tag.get(Tag.name == t)
+            except DoesNotExist:
+                new_tag = Tag.create(name=t, descr='')
 
             # insert tag and volume id into TagRelation table
-            pass
+            TagRelation.create(relVolume=vol.id, relTag=new_tag.id)
 
         # Add pages to DB Image table
         page = 0
