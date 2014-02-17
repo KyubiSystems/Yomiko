@@ -20,6 +20,7 @@ class BaseModel(Model):
 
 class Volume(BaseModel):
     title = CharField()
+    file = CharField(unique=True)
     md5 = CharField()
     type = CharField()
     num = IntegerField()
@@ -31,7 +32,7 @@ class Volume(BaseModel):
 
 
 class Tag(BaseModel):
-    name = CharField()
+    name = CharField(unique=True)
     descr = CharField()
 
 

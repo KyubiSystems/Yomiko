@@ -4,3 +4,4 @@
 .idea/
 venv.yo
 app/db/Yomiko.db
+app/titletest.py

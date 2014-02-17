@@ -13,8 +13,6 @@ from pyparsing import *
 
 def split_tags(data):
 
-    #data = """[Null (nyanpoun)] Unnamed [Strike Witches](English)(Trinity Translations).zip"""
-
     # crop filename extension
     data = os.path.splitext(os.path.basename(data))[0]
 
@@ -43,11 +41,11 @@ def split_title_tags(data):
     # substitute left parens with round bracket
     data = re.sub('[\{\[]', '(', data)
 
+    # substitute underscores
+    data = data.replace('_', ' ')
+
     # substitute right parens with round bracket
     data = re.sub('[\}\]]', ')', data)
-
-    # Add enclosing brackets to satisfy nestedExpr
-    data = '(' + data + ')'
 
     # Suppress bracketed sections to extract title
     # Will need to catch exceptions here
@@ -59,11 +57,8 @@ def split_title_tags(data):
     # Remove title from input string
     data = data.replace(title, '')
 
-    # Substitute all brackets with pipes
-    data = re.sub('[\(\[\)\]\{\}]', '|', data)
-
-    # Split by pipes
-    tags = re.split('\|', data)
+    # Split by remaining round brackets
+    tags = re.split('\(|\)', data)
 
     # Strip whitespace from tags
     tags = [t.strip() for t in tags]
@@ -71,6 +66,7 @@ def split_title_tags(data):
     # Drop empty entries
     tags = filter(None, tags)
 
+    # Return title string and tag list
     return title, tags
 
 

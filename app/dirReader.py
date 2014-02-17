@@ -80,11 +80,13 @@ for f in zips:
         # Generate MD5 checksum for ZIP file
         md5 = md5sum(INPUT_PATH+f)
 
-        # Add volume to DB Volume table
-        vol = Volume.create(title=f, md5=md5, type='zip', num=zip_count, comments='')
+        # Parse title, ags from filename
+        title, tags = tag.split_title_tags(f)
 
-        # Parse tags from filename, add to DB Tags table
-        tags = tag.split_tags(f)
+        # Add volume to DB Volume table
+        vol = Volume.create(title=title, file=f, md5=md5, type='zip', num=zip_count, comments='')
+
+        # Add tags to DB Tag table
         for t in tags:
             # check if tag already exists, insert if not
 
@@ -122,11 +124,13 @@ for f in rars:
         # Generate MD5 checksum for RAR file
         md5 = md5sum(INPUT_PATH+f)
 
-        # Add volume to DB Volume table
-        vol = Volume.create(title=f, md5=md5, type='rar', num=rar_count, comments='')
+        # Parse title, tags from filename
+        title, tags = tag.split_title_tags(f)
 
-        # Parse tags from filename, add to DB Tags table
-        tags = tag.split_tags(f)
+        # Add volume to DB Volume table
+        vol = Volume.create(title=title, file=f, md5=md5, type='rar', num=rar_count, comments='')
+
+        # Add tags to DB Tags table
         for t in tags:
             # check if tag already exists, insert if not
 
