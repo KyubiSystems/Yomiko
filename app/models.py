@@ -42,7 +42,7 @@ class TagRelation(BaseModel):
 
 
 class Image(BaseModel):
-    volume = ForeignKeyField(Volume, related_name='images')
+    volume = ForeignKeyField(Volume, on_delete='cascade', related_name='images')
     page = IntegerField()
     file = CharField()
     thumb_ok = BooleanField(default=False)  # Set True if thumbnail successfully generated
