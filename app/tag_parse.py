@@ -7,11 +7,11 @@ import re
 import os.path
 from pyparsing import *
 
-# simple-minded method to separate doujin file names into characteristic tags
-# tried pyparsing but decided wasn't worth the effort
+# separate doujin filenames into titles and characteristic tags
 
 
 def split_tags(data):
+    # simple-minded routine to split filename string into tags
 
     # crop filename extension
     data = os.path.splitext(os.path.basename(data))[0]
