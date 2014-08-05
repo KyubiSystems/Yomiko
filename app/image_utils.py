@@ -21,9 +21,12 @@ import config
 # Take binary directly from ZipFile output?
 # Check for valid image data before write?
 class Page(BytesIO):
+
+    # Return binary object associated with Page
     def get(self):
         return self.getvalue()
 
+    # Return binary object as Pillow image object
     def img(self):
         try:
             im = Image.open(BytesIO(self.get()))
@@ -31,27 +34,34 @@ class Page(BytesIO):
         except:
             print "Unable to open image"
 
-    def save(self, path):
+    # Save binary object to file as JPEG image
+    # Check for directory existence at volume level?
+
+    def save(self, filename):
         im = self.img()
         try:
-            im.save(path, 'JPEG')
-            return path
-        except:
+            im.save(filename, 'JPEG')
+            return filename
+        except IOError:
             print "Unable to save image"
 
+    # Return image size array
     def size(self):
         return self.img().size
 
-    def thumb(self, size=(THUMB_WIDTH, THUMB_HEIGHT)):
+    # Generate thumbnail from Page binary object 
+    # set default size in config, can override
+    # then save at path thumbname
+    def thumb(self, thumbname, size=(THUMB_WIDTH, THUMB_HEIGHT)):
         im = self.img()
         try:
             im.thumbnail(size, Image.ANTIALIAS)
         except:
             print "Unable to create thumbnail"
 
-        # How is thumbnail filename generated?
+        # im.save(outfile, format, options...)
         self.seek(0)
         try:
-            im.save(self, 'JPEG')
-        except:
+            im.save(thumbname, 'JPEG')
+        except IOError:
             print "Unable to save thumbnail"
