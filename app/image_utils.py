@@ -11,7 +11,7 @@ from PIL import Image, ImageFilter
 from io import BytesIO
 from os import rename, makedirs, path
 
-import config
+from config import *
 
 # Clean up class initialisation
 # Better exception handling

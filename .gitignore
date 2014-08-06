@@ -5,3 +5,4 @@
 venv.yo
 app/db/Yomiko.db
 app/titletest.py
+app/test/
