@@ -9,6 +9,7 @@ import rarfile
 import fnmatch
 import hashlib
 import split_tags as tag
+import os
 from models import *
 
 zips = []
@@ -85,7 +86,7 @@ def scan_archive_file(archives, filetype):
         members = filter(lambda x: is_image(x) is True, members)
         
         # Get number of members
-        member_count = members.count()
+        member_count = len(members)
 
         print ' done.'
         print "Found {0} members.".format(str(member_count))
