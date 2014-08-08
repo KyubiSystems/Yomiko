@@ -13,6 +13,18 @@ from os import rename, makedirs, path
 
 from config import *
 
+# determine whether filename has image extension
+def is_image(f):
+
+# list of defined image extensions
+    IMAGE_EXTS = ['.gif', '.GIF', '.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG']
+
+    name, extension = os.path.splitext(f)
+    if extension in IMAGE_EXTS:
+        return True
+    else:
+        return False
+
 # Clean up class initialisation
 # Better exception handling
 

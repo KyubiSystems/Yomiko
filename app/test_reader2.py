@@ -3,21 +3,7 @@
 import zipfile
 import config
 import os
-from image_utils import Page
-
-
-# list of defined image extensions
-IMAGE_EXTS = ['.gif', '.GIF', '.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG']
-
-
-# determine whether filename has image extension
-def is_image(f):
-    name, extension = os.path.splitext(f)
-    if extension in IMAGE_EXTS:
-        return True
-    else:
-        return False
-
+from image_utils import Page, is_image
 
 fh = open('test/input.zip', 'rb')
 

@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Title {{name}}</h1>
-<h3>This is a test of template inheritance in Yomiko</h3>
+<ul>
+{% for t in thumbs %}
+<li><img src="{{ url_for('static', filename='thumbnails/'+id+'/'+t) }}"><br/><b>{{ t }}</b></li>
+{% endfor %}
+</ul>
 {% endblock %}
 
