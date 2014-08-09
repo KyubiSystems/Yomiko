@@ -51,7 +51,7 @@ def title(title_id):
     # iterate in page number
     
     # pass list of thumbnails to template
-    return render_template("title.html",name='testing',id=str(title_id),thumbs=thumbs)
+    return render_template("title.html",title='testing',id=str(title_id),thumbs=thumbs)
 
 # Render individual page image
 
