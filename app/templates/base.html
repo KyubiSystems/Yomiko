@@ -11,14 +11,13 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<!-- begin Twitter Bootstrap CDN -->
-<link
-href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
-rel="stylesheet">
-<!-- end Twitter Bootstrap CDN -->
-<!-- begin Font Awesome CDN -->
+<!-- Twitter Bootstrap CDN -->
+<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+<!-- Font Awesome CDN -->
 <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet">
-<!-- end Font Awesome CDN -->
+<!-- Yomiko CSS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<!-- Favicon -->
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
@@ -77,14 +76,27 @@ rel="stylesheet">
     </div>
   </div>
   
-<h1>Yomiko: <a href="/index">Home</a></h1>
 <hr>
 {% block content %}{% endblock %}
 </div>
 </div>
 </div>
 <!-- end main body text -->
-<script src="http://code.jquery.com/jquery.js"></script>
+<!-- jQuery CDN -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- Isotope CDN -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.0.0/isotope.pkgd.min.js"></script>
+<!-- Bootstrap CDN -->
 <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+<!-- initialise Isotope container -->
+<script type="text/javascript">
+var $container = $('#container');
+// init
+$container.isotope({
+  // options
+  itemSelector: '.item',
+  layoutMode: 'fitRows'
+});
+</script>
 </body>
 </html>

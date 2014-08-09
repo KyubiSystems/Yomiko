@@ -1,10 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Title {{name}}</h1>
-<ul>
+<h1>{{ name }}</h1>
 {% for t in thumbs %}
-<li><img src="{{ url_for('static', filename='thumbnails/'+id+'/'+t) }}"><br/><b>{{ t }}</b></li>
+<div class="item"><img src="{{ url_for('static', filename='thumbnails/'+id+'/'+t) }}"><br/><b>{{ t }}</b></div>
 {% endfor %}
-</ul>
 {% endblock %}
 
