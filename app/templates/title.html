@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>{{ title }}</h1>
+<h1 class="title"><i class="fa fa-list"></i> {{ title }}</h1>
 <div class="thumbcontainer">
 {% for t in thumbs %}
   <div class="item"><img src="{{ url_for('static', filename='thumbnails/'+id+'/'+t) }}"><br/><b>{{ t }}</b></div>
 {% endfor %}
 </div>
+<hr noshade/>
 {% endblock %}
 

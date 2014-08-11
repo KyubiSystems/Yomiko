@@ -1,3 +1,13 @@
-.item { width: 150px;
-        border: 1px solid black;
+.item { width: 120px;
+        height: 170px;
+	margin-top: 10px;
+	margin-right: 10px;
+	text-align: center;
+	background-color: #ddd;
+	border-radius: 5px;
       }
+
+.item img { margin-top: 10px; }
+
+.title { color: #777; 
+         text-transform: capitalize; }
