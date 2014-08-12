@@ -8,24 +8,13 @@ import zipfile
 import rarfile
 import fnmatch
 import hashlib
-import split_tags as tag
+import tag_parse as tag
 import os
 from models import *
+from image_utils import is_image
 
 zips = []
 rars = []
-
-# list of defined image extensions
-IMAGE_EXTS = ['.gif', '.GIF', '.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG']
-
-
-# determine whether filename has image extension
-def is_image(f):
-    name, extension = os.path.splitext(f)
-    if extension in IMAGE_EXTS:
-        return True
-    else:
-        return False
 
 
 # Get MD5 checksum of input file
@@ -35,11 +24,6 @@ def md5sum(filename, blocksize=65536):
         for block in iter(lambda: f.read(blocksize), ""):
             hash.update(block)
     return hash.hexdigest()
-
-
-# Generate thumbnail and save to cache
-def make_thumbnail(f):
-    pass
 
 
 def scan_archive_file(archives, filetype):
@@ -101,7 +85,7 @@ def scan_archive_file(archives, filetype):
             title, tags = tag.split_title_tags(f)
 
             # Add volume to DB Volume table
-            vol = Volume.create(title=title, file=f, md5=md5, type=filetype, num=member_count, comments='')
+            vol = Volume.create(title=title, filename=f, md5=md5, filetype=filetype, num=member_count, comments='')
 
             # Add tags to DB Tags table
             for t in tags:
@@ -116,14 +100,18 @@ def scan_archive_file(archives, filetype):
 
             # Add pages to DB Image table
             # Allocate page 0 to cover
-            # Will be used in summary display
+            # How to ensure that page order correct? ZIP member order != page order.
+
+            # Try basic sort as first pass, modify sort algo as required
+            members.sort()
+
             page = 0
             for m in members:
-                im = Image.create(volume=vol.id, page=page, file=r)
+                im = Image.create(volume=vol.id, page=page, filename=m)
                 page += 1
 
             # Spawn greenlet processes to generate thumbnails
-            # Display progress bars?
+            # Display ANSI graphics progress bars?
 
             
 
@@ -140,6 +128,12 @@ for f in os.listdir(INPUT_PATH):
 
     if fnmatch.fnmatch(f, '*.[Cc][Bb][Rr]'):
         rars.append(f)
+
+# Check for existence of SQLite3 database, creating if necessary
+if not os.path.exists(DB_FILE):
+    print "SQLite database not found, creating file " + DB_FILE
+    # create_db()
+    print "Done."
 
 # Scan and process ZIP files
 scan_archive_file(zips, 'zip')

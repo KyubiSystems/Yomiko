@@ -6,10 +6,12 @@ Yomiko Comics Reader
 import os
 import zipfile
 import fnmatch
+import mimetypes
 from config import *
 from flask import Flask, render_template, send_file
 from io import BytesIO
 from image_utils import is_image
+
 
 app = Flask(__name__)
 
@@ -58,9 +60,15 @@ def title(title_id):
 @app.route('/page/<int:title_id>/<int:page_num>')
 def page(title_id, page_num):
 
+    # Initialise mimetypes
+    mimetypes.init()
+
     # DB query to get archive file corresponding to title ID
+    # and member file corresponding to page number
+
     # abstract to volume class?
 
+    # TEST INPUT FILE
     fh = open(APP_PATH+'/test/input.zip', 'rb')
 
     z = zipfile.ZipFile(fh)
@@ -69,6 +77,7 @@ def page(title_id, page_num):
     members = z.namelist()
 
     # Filter member list for images
+    # This should already be done on import
     members = filter(lambda x: is_image(x) is True, members)
 
     # Get number of members
@@ -76,9 +85,10 @@ def page(title_id, page_num):
 
     if page_num < member_count:
 
-        foo = z.read(members[page_num])
+        # Guess mimetype for image from filename
+        (mimetype, encoding) = mimetypes.guess_type(members[page_num])
 
-        mimetype = 'image/jpeg'
+        foo = z.read(members[page_num])
 
         fh.close()
 
