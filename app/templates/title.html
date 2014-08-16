@@ -3,7 +3,7 @@
 <h1 class="title"><i class="fa fa-list"></i> {{ title }}</h1>
 <div class="thumbcontainer">
 {% for t in thumbs %}
-  <div class="item"><img src="{{ url_for('static', filename='thumbnails/'+id+'/'+t) }}"><br/><b>{{ t }}</b></div>
+  <div class="item"><a href="{{ url_for('page', title_id=id, page_num=t['page']) }}"><img src="{{ url_for('static', filename='thumbnails/'+id+'/'+t['path']) }}"></a><br/><b>{{ t['page'] }}</b></div>
 {% endfor %}
 </div>
 <hr noshade/>

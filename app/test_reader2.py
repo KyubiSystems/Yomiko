@@ -33,7 +33,7 @@ for m in members:
 
     p = Page(foo)
 
-    p.thumb('./test/'+str(page)+'_thumb.jpg')
+    p.thumb('./test/thumb_'+'{:03d}'.format(page)+'.jpg')
 
     print 'Thumbnail '+str(page)+' saved!'
 

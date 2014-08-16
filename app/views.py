@@ -43,11 +43,13 @@ def title(title_id):
     title_id = 0
 
     # Get list of thumbnails for this title
-    # replace directory glob with DB query?
+    # replace directory glob with DB query
     thumbs = []
+    page = 0
     for f in os.listdir(APP_PATH+ '/static/thumbnails/'+str(title_id)):
-        if fnmatch.fnmatch(f,'*thumb.jpg'):
-            thumbs.append(f)
+        if fnmatch.fnmatch(f,'thumb*.jpg'):
+            thumbs.append({'page': page, 'path': f})
+            page += 1
 
     # extend to returning dictionary of page number, thumbnail URL
     # iterate in page number
