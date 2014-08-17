@@ -4,6 +4,7 @@ import zipfile
 import config
 import os
 from image_utils import Page, is_image
+from progressbar import Bar, ProgressBar, Counter, ETA
 
 fh = open('test/input.zip', 'rb')
 
@@ -26,6 +27,12 @@ member_count = len(members)
 
 page = 0
 
+print 'Starting...'
+
+# initialise progress bar display
+widgets = ['Title: ', Counter(),'/'+str(member_count)+' ', Bar(marker='=', left='[', right=']'), ETA()]
+pbar = ProgressBar(widgets=widgets, maxval=member_count).start()
+
 # Iterate over ZIP members, generate thumbnails
 for m in members:
     
@@ -35,8 +42,12 @@ for m in members:
 
     p.thumb('./test/thumb_'+'{:03d}'.format(page)+'.jpg')
 
-    print 'Thumbnail '+str(page)+' saved!'
+#    print 'Thumbnail '+str(page)+' saved!'
 
+    pbar.update(page)
     page += 1
 
+pbar.finish()
 fh.close()
+
+print 'Done!'

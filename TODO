@@ -1,20 +1,23 @@
-Dummy data
-----------
-
-Create test.py with dummy data imports to develop views
-
 Add routes to Flask
 -------------------
 
 /		   front page with logo
 /list[/pg]	   display list of titles as text (#page)
 /thumbs[/pg] 	   display list of titles as cover thumbnails (#page)
-/tags		   display tag cloud?
-/tags/id/id/pg	   filter list by multiple tags as text (#page)
-/imtags/id/id/pg   filter list by multiple tags as cover thumbnails (#page)
-/settings	   modify application config
 /title/id[/pg]	   display title #id as thumbnails (#page)
-/page/id/pg	   display #page of volume #id [replace with slider?]
+/image/id/n	   return bitmap #n of title #id
+/view/id	   display title #id in slider
+
+/tags		     display tag cloud
+/tags/id/edit	     edit tag #id
+/tags/id/delete	     delete tag #id		    
+/filter/id.id.id..   filter by multiple tags
+/settings	     modify application config
+
+Dummy data
+----------
+
+Create test.py with dummy data imports to develop views
 
 Hotkeys handling for keyboard shortcuts
 ---------------------------------------

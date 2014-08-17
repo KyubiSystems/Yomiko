@@ -12,6 +12,7 @@ import tag_parse as tag
 import os
 from models import *
 from image_utils import is_image
+from progressbar import Bar, ProgressBar, Counter, ETA
 
 zips = []
 rars = []
@@ -100,20 +101,26 @@ def scan_archive_file(archives, filetype):
 
             # Add pages to DB Image table
             # Allocate page 0 to cover
-            # How to ensure that page order correct? ZIP member order != page order.
-
-            # Try basic sort as first pass, modify sort algo as required
-            members.sort()
 
             page = 0
+
+            # initialise progress bar display
+            widgets = [title+': ', Counter(),'/'+str(member_count)+' ', Bar(marker='=', left='[', right=']'), ETA()]
+            pbar = ProgressBar(widgets=widgets, maxval=member_count).start()
+            
             for m in members:
+                # image record should include image height & width
+
                 im = Image.create(volume=vol.id, page=page, filename=m)
+
+                pbar.update(page)
                 page += 1
 
-            # Spawn greenlet processes to generate thumbnails
-            # Display ANSI graphics progress bars?
+                # Spawn greenlet processes to generate thumbnails
 
-            
+            pbar.finish()
+
+        #fh.close()
 
 # Find ZIPs and RARs in input directory
 for f in os.listdir(INPUT_PATH):

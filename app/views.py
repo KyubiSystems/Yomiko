@@ -20,12 +20,30 @@ app = Flask(__name__)
 def index():
     return render_template("index.html")
 
+# List of titles
+
 @app.route('/list')
 def plist():
     return render_template("list.html")
 
+# Tag operations
+
 @app.route('/tags')
 def tags():
+    return render_template("tags.html")
+
+@app.route('/tags/<int:tag_id>/edit')
+def edit_tag(tag_id):
+    return render_template("tags.html")
+
+@app.route('/tags/<int:tag_id>/delete')
+def delete_tag(tag_id):
+    return render_template("tags.html")
+
+# Filter operations
+
+@app.route('/filter/<filter_string>')
+def filter_tags(filter_string):
     return render_template("tags.html")
 
 # Application settings
@@ -34,7 +52,8 @@ def tags():
 def settings():
     return render_template("settings.html")
 
-# Render title (grid of thumbnails). Cover?
+# Render title (grid of thumbnails).
+# Image 0 as blurred CSS background?
 
 @app.route('/title/<int:title_id>')
 def title(title_id):
@@ -102,12 +121,6 @@ def page(title_id, page_num):
         fh.close()
         
         abort(404)
-
-# Test page
-
-@app.route('/hello')
-def hello_world():
-    return 'Hello world!'
 
 # Error handling
 
