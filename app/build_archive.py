@@ -11,7 +11,7 @@ import hashlib
 import tag_parse as tag
 import os
 from models import *
-from image_utils import is_image
+from image_utils import is_image, Page
 from progressbar import Bar, ProgressBar, Counter, ETA
 
 zips = []
