@@ -14,13 +14,10 @@ DEBUG = True
 DB_FILE = APP_PATH + '/db/Yomiko.db'
 
 # Set input file path to scan for RAR/ZIP files
-INPUT_PATH = os.path.expanduser('~/Downloads/')
-
-# Set path for downloaded image cache
-CACHE_PATH = APP_PATH + '/cache/'
+INPUT_PATH = os.path.expanduser('~/Downloads/Manga/')
 
 # Set path for thumbnail store
-THUMB_PATH = APP_PATH + '/thumbnails/'
+THUMB_PATH = APP_PATH + '/static/thumbnails/'
 
 # Set thumbnail default sizes
 THUMB_WIDTH = 90

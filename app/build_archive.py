@@ -18,6 +18,7 @@ zips = []
 rars = []
 
 
+# >>> TODO: Implement for finding duplicates? Check speed
 # Get MD5 checksum of input file
 def md5sum(filename, blocksize=65536):
     hash = hashlib.md5()
@@ -100,24 +101,48 @@ def scan_archive_file(archives, filetype):
                 TagRelation.create(relVolume=vol.id, relTag=new_tag.id)
 
             # Add pages to DB Image table
-            # Allocate page 0 to cover
 
-            page = 0
+            # Reset page counter (assume cover is page 0)
+            page = 0  
 
             # initialise progress bar display
             widgets = [title+': ', Counter(),'/'+str(member_count)+' ', Bar(marker='=', left='[', right=']'), ETA()]
             pbar = ProgressBar(widgets=widgets, maxval=member_count).start()
             
-            for m in members:
-                # image record should include image height & width
+            # Attempt to create thumbnail directory if it doesn't already exist
+            path = THUMB_PATH + str(vol.id)
 
+            try:
+                os.makedirs(path)
+            except OSError:
+                if not os.path.isdir(path):
+                    raise
+
+            # Iterate over images in zip file
+            for m in members:
+
+                # Create record in Image table
+                # >>> TODO: image record should include image height & width
                 im = Image.create(volume=vol.id, page=page, filename=m)
 
+                # Generate thumbnails
+                # >>> TODO: May spawn greenlets to do this?
+
+                # Read data from archive
+                rawdata = myfile.read(m)
+                
+                # Generate Page object
+                p = Page(rawdata)
+
+                # Create thumbnail
+                p.thumb(path+'/'+'{:03d}'.format(page)+'.jpg')
+                
+                # Update progress bar
                 pbar.update(page)
                 page += 1
 
-                # Spawn greenlet processes to generate thumbnails
-
+            
+            # end progress bar
             pbar.finish()
 
         #fh.close()
