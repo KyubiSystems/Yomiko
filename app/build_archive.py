@@ -18,7 +18,6 @@ zips = []
 rars = []
 
 
-# >>> TODO: Implement for finding duplicates? Check speed
 # Get MD5 checksum of input file
 def md5sum(filename, blocksize=65536):
     hash = hashlib.md5()
@@ -40,7 +39,6 @@ def scan_archive_file(archives, filetype):
         # Attempt to scan ZIP file        
         if filetype == 'zip':
 
-            print "Scanning ZIP: "+f
             try:
                 myfile = zipfile.Zipfile(INPUT_PATH+f, 'r')
             except zipfile.BadZipfile as e:
@@ -52,7 +50,6 @@ def scan_archive_file(archives, filetype):
         # Scan RAR file
         elif filetype == 'rar':
 
-            print "Scanning RAR: "+f
             try:
                 myfile = rarfile.RarFile(INPUT_PATH+f, 'r')
             except (rarfile.BadRarFile, rarfile.NotRarFile) as e:
@@ -100,13 +97,17 @@ def scan_archive_file(archives, filetype):
                 # insert tag and volume id into TagRelation table
                 TagRelation.create(relVolume=vol.id, relTag=new_tag.id)
 
-            # Add pages to DB Image table
-
             # Reset page counter (assume cover is page 0)
             page = 0  
 
+            # Generate display title
+            disptitle=title[:20]
+            if len(disptitle) < len(title):
+                disptitle = disptitle+'...'
+            disptitle.ljust(24)
+
             # initialise progress bar display
-            widgets = [title+': ', Counter(),'/'+str(member_count)+' ', Bar(marker='=', left='[', right=']'), ETA()]
+            widgets = [disptitle+': ', Counter(),'/'+str(member_count)+' ', Bar(marker='=', left='[', right=']'), ETA()]
             pbar = ProgressBar(widgets=widgets, maxval=member_count).start()
             
             # Attempt to create thumbnail directory if it doesn't already exist
