@@ -8,9 +8,11 @@ import zipfile
 import rarfile
 import fnmatch
 import hashlib
-import tag_parse as tag
 import os
+
+import tag_parse as tag
 from models import *
+from db_utils import create_db
 from image_utils import is_image, Page
 from progressbar import Bar, ProgressBar, Counter, ETA
 
@@ -68,13 +70,10 @@ def scan_archive_file(archives, filetype):
         # Filter member list for images
         members = filter(lambda x: is_image(x) is True, members)
         
-        # Get number of members
+        # Get number of images
         member_count = len(members)
 
-        print ' done.'
-        print "Found {0} members.".format(str(member_count))
-
-        # Check if # images > 0
+        # If images found...
         if member_count > 0:
 
             # Generate MD5 checksum for archive file
@@ -146,7 +145,10 @@ def scan_archive_file(archives, filetype):
             # end progress bar
             pbar.finish()
 
-        #fh.close()
+        # Close archive
+        myfile.close()
+
+        
 
 # Find ZIPs and RARs in input directory
 for f in os.listdir(INPUT_PATH):
@@ -164,9 +166,9 @@ for f in os.listdir(INPUT_PATH):
 
 # Check for existence of SQLite3 database, creating if necessary
 if not os.path.exists(DB_FILE):
-    print "SQLite database not found, creating file " + DB_FILE
-    # create_db()
-    print "Done."
+    print "SQLite database not found, creating file " + DB_FILE + "...",
+    create_db()
+    print "done."
 
 # Scan and process ZIP files
 scan_archive_file(zips, 'zip')
