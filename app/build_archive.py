@@ -8,6 +8,7 @@ import zipfile
 import rarfile
 import fnmatch
 import hashlib
+import mimetypes
 import os
 
 import tag_parse as tag
@@ -35,6 +36,9 @@ def scan_archive_file(archives, filetype):
     # Add tags to Tag DB (many-to-many mapping)
     # Add pages to Image DB
 
+    # initialise mimetypes
+    mimetypes.init()
+
     # Iterate over input list of archive files
     for f in archives:
 
@@ -42,7 +46,7 @@ def scan_archive_file(archives, filetype):
         if filetype == 'zip':
 
             try:
-                myfile = zipfile.Zipfile(INPUT_PATH+f, 'r')
+                myfile = zipfile.ZipFile(INPUT_PATH+f, 'r')
             except zipfile.BadZipfile as e:
                 raise Exception(u'"{}" is not a valid ZIP file! Error: {}'.format(f, e))
             except:
@@ -121,9 +125,12 @@ def scan_archive_file(archives, filetype):
             # Iterate over images in zip file
             for m in members:
 
+                # Guess mimetype for image from filename
+                (mimetype, encoding) = mimetypes.guess_type(m)
+
                 # Create record in Image table
                 # >>> TODO: image record should include image height & width
-                im = Image.create(volume=vol.id, page=page, filename=m)
+                im = Image.create(volume=vol.id, page=page, mimetype=mimetype, filename=m)
 
                 # Generate thumbnails
                 # >>> TODO: May spawn greenlets to do this?
