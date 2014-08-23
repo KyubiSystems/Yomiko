@@ -56,6 +56,7 @@ class Page(BytesIO):
             return filename
         except IOError:
             print "Unable to save image"
+            raise
 
     # Return image size array
     def size(self):
@@ -70,6 +71,7 @@ class Page(BytesIO):
             im.thumbnail(size, Image.ANTIALIAS)
         except:
             print "Unable to create thumbnail"
+            raise
 
         # im.save(outfile, format, options...)
         self.seek(0)
@@ -77,3 +79,4 @@ class Page(BytesIO):
             im.convert('RGB').save(thumbname, 'JPEG')
         except IOError:
             print "Unable to save thumbnail"
+            raise
