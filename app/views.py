@@ -116,29 +116,29 @@ def page(title_id, page_num):
         abort(404)
 
     if volume.filetype == 'zip':
+
         # TODO: Error check on archive open
-        fh = open(INPUT_PATH+volume.filename, 'rb')
-        z = zipfile.ZipFile(fh)
+        z = zipfile.ZipFile(INPUT_PATH+volume.filename)
         
         # Get page binary data
         # TODO: Error checking
         foo = z.read(page.filename)
         
-        fh.close()
+        z.close()
   
     # Return extracted image to browser
         return send_file(BytesIO(foo), mimetype=page.mimetype)
 
     elif volume.filetype == 'rar':
+    
         # TODO: Error check on archive open
-        fh = open(INPUT_PATH+volume.filename, 'rb')
-        z = rarfile.RarFile(fh)
+        z = rarfile.RarFile(INPUT_PATH+volume.filename)
         
         # Get page binary data
         # TODO: Error checking
         foo = z.read(page.filename)
         
-        fh.close()
+        z.close()
 
     # Return extracted image to browser
         return send_file(BytesIO(foo), mimetype=page.mimetype)
