@@ -8,7 +8,7 @@ import zipfile
 import fnmatch
 import mimetypes
 from config import *
-from flask import Flask, render_template, send_file
+from flask import Flask, abort, render_template, send_file
 from io import BytesIO
 from image_utils import is_image
 
@@ -30,20 +30,44 @@ def plist():
 
 @app.route('/tags')
 def tags():
-    return render_template("tags.html")
+
+    # DB query to Get tag information
+    # TODO: Need to get tag count by join...
+    tags = Tag.select()
+
+    return render_template("tags.html", tags=tags)
 
 @app.route('/tags/<int:tag_id>/edit')
 def edit_tag(tag_id):
-    return render_template("tags.html")
+
+    # DB query to get specific tag
+    try:
+        tag = Tag.get(id == tag_id)
+    except Tag.DoesNotExist:
+        abort(404)
+
+    return render_template("tags.html", tags=tag)
 
 @app.route('/tags/<int:tag_id>/delete')
 def delete_tag(tag_id):
-    return render_template("tags.html")
+
+    # DB query to get specific tag
+    try:
+        tag = Tag.get(id == tag_id)
+    except Tag.DoesNotExist:
+        abort(404)
+
+    return render_template("tags.html", tags=tag)
 
 # Filter operations
 
 @app.route('/filter/<filter_string>')
 def filter_tags(filter_string):
+
+    # filter string is dot-separated list of tag IDs
+
+    # TODO: Check how to do filter search on titles
+
     return render_template("tags.html")
 
 # Application settings
@@ -58,23 +82,17 @@ def settings():
 @app.route('/title/<int:title_id>')
 def title(title_id):
 
-    # TEST: for testing purposes set title_id =0
-    title_id = 0
+    # Get title information
+    try:
+        volume = Volume.get(id == title_id)
+    except Volume.DoesNotExist:
+        abort(404)
 
-    # Get list of thumbnails for this title
-    # replace directory glob with DB query
-    thumbs = []
-    page = 0
-    for f in os.listdir(APP_PATH+ '/static/thumbnails/'+str(title_id)):
-        if fnmatch.fnmatch(f,'thumb*.jpg'):
-            thumbs.append({'page': page, 'path': f})
-            page += 1
-
-    # extend to returning dictionary of page number, thumbnail URL
-    # iterate in page number
+    # Get list of images for this title
+    thumbs = Image.select().where(volume_id == title_id).order_by(Image.page)
     
     # pass list of thumbnails to template
-    return render_template("title.html",title='testing',id=str(title_id),thumbs=thumbs)
+    return render_template("title.html",title=volume.title,id=str(title_id),thumbs=thumbs)
 
 # Render individual page image
 
@@ -87,45 +105,36 @@ def page(title_id, page_num):
     # DB query to get archive file corresponding to title ID
     # and member file corresponding to page number
 
-    # abstract to volume class?
+    # Get title information
+    try:
+        volume = Volume.get(id == title_id)
+    except Volume.DoesNotExist:
+        abort(404)
 
-    # TEST INPUT FILE
-    fh = open(APP_PATH+'/test/input.zip', 'rb')
+    # Get page information
+    try:
+        page = Image.get((volume_id == title_id) & (page == page_num))
+    except Image.DoesNotExist:
+        abort(404)
 
+    # open archive file
+    # TODO: Error checking
+    fh = open(INPUT_PATH+volume.filename, 'rb')
     z = zipfile.ZipFile(fh)
 
-    # Get members from archive
-    members = z.namelist()
+    # Get page binary data
+    # TODO: Error checking
+    foo = z.read(page.filename)
 
-    # Filter member list for images
-    # This should already be done on import
-    members = filter(lambda x: is_image(x) is True, members)
+    fh.close()
 
-    # Get number of members
-    member_count = len(members)
-
-    if page_num < member_count:
-
-        # Guess mimetype for image from filename
-        (mimetype, encoding) = mimetypes.guess_type(members[page_num])
-
-        foo = z.read(members[page_num])
-
-        fh.close()
-
-        # return extracted image to browser
-        return send_file(BytesIO(foo), mimetype=mimetype)
-
-    else: 
-
-        fh.close()
-        
-        abort(404)
+    # Return extracted image to browser
+    return send_file(BytesIO(foo), mimetype=page.mimetype)
 
 # Error handling
 
 @app.errorhandler(404)
-def internal_error(error):
+def page_not_found(error):
     return render_template("404.html"), 404
 
 @app.errorhandler(500)

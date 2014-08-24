@@ -52,7 +52,7 @@ class Page(BytesIO):
     def save(self, filename):
         im = self.img()
         try:
-            im.convert('RGB').save(filename, 'JPEG')
+            im.convert('RGB').save(filename, 'JPEG', quality=90)
             return filename
         except IOError:
             print "Unable to save image"
@@ -76,7 +76,7 @@ class Page(BytesIO):
         # im.save(outfile, format, options...)
         self.seek(0)
         try:
-            im.convert('RGB').save(thumbname, 'JPEG')
+            im.convert('RGB').save(thumbname, 'JPEG', quality=90)
         except IOError:
             print "Unable to save thumbnail"
             raise
