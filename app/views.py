@@ -5,10 +5,11 @@ Yomiko Comics Reader
 
 import os
 import zipfile
+import rarfile
 import fnmatch
-import mimetypes
 from config import *
 from flask import Flask, abort, render_template, send_file
+from models import *
 from io import BytesIO
 from image_utils import is_image
 
@@ -84,12 +85,12 @@ def title(title_id):
 
     # Get title information
     try:
-        volume = Volume.get(id == title_id)
+        volume = Volume.get(Volume.id == title_id)
     except Volume.DoesNotExist:
         abort(404)
 
     # Get list of images for this title
-    thumbs = Image.select().where(volume_id == title_id).order_by(Image.page)
+    thumbs = Image.select(Image,Volume).join(Volume).where(Volume.id == title_id).order_by(Image.page)
     
     # pass list of thumbnails to template
     return render_template("title.html",title=volume.title,id=str(title_id),thumbs=thumbs)
@@ -99,37 +100,52 @@ def title(title_id):
 @app.route('/page/<int:title_id>/<int:page_num>')
 def page(title_id, page_num):
 
-    # Initialise mimetypes
-    mimetypes.init()
-
     # DB query to get archive file corresponding to title ID
     # and member file corresponding to page number
 
     # Get title information
     try:
-        volume = Volume.get(id == title_id)
+        volume = Volume.get(Volume.id == title_id)
     except Volume.DoesNotExist:
         abort(404)
 
     # Get page information
     try:
-        page = Image.get((volume_id == title_id) & (page == page_num))
+        page = Image.select().join(Volume).where((Volume.id == title_id) & (Image.page == page_num)).get()
     except Image.DoesNotExist:
         abort(404)
 
-    # open archive file
-    # TODO: Error checking
-    fh = open(INPUT_PATH+volume.filename, 'rb')
-    z = zipfile.ZipFile(fh)
+    if volume.filetype == 'zip':
+        # TODO: Error check on archive open
+        fh = open(INPUT_PATH+volume.filename, 'rb')
+        z = zipfile.ZipFile(fh)
+        
+        # Get page binary data
+        # TODO: Error checking
+        foo = z.read(page.filename)
+        
+        fh.close()
+  
+    # Return extracted image to browser
+        return send_file(BytesIO(foo), mimetype=page.mimetype)
 
-    # Get page binary data
-    # TODO: Error checking
-    foo = z.read(page.filename)
-
-    fh.close()
+    elif volume.filetype == 'rar':
+        # TODO: Error check on archive open
+        fh = open(INPUT_PATH+volume.filename, 'rb')
+        z = rarfile.RarFile(fh)
+        
+        # Get page binary data
+        # TODO: Error checking
+        foo = z.read(page.filename)
+        
+        fh.close()
 
     # Return extracted image to browser
-    return send_file(BytesIO(foo), mimetype=page.mimetype)
+        return send_file(BytesIO(foo), mimetype=page.mimetype)
+
+    # unrecognised archive type
+    else:
+        abort(500)
 
 # Error handling
 
