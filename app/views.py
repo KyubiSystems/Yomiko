@@ -29,12 +29,22 @@ def plist():
 
 # Tag operations
 
+# Show all tags
 @app.route('/tags')
-def tags():
+def alltags():
 
-    # DB query to Get tag information
-    # TODO: Need to get tag count by join...
-    tags = Tag.select()
+    tags = Tag.select().order_by(Tag.name)
+
+    return render_template("tags.html", tags=tags)
+
+# Show titles associated with given tag
+@app.route('/tags/<int:tag_id>')
+def showtag():
+
+    try:
+        tags = Tag.select().where(Tag.id == tag_id).order_by(Tag.name)
+    except Tag.DoesNotExist:
+        abort(404)
 
     return render_template("tags.html", tags=tags)
 
@@ -91,9 +101,12 @@ def title(title_id):
 
     # Get list of images for this title
     thumbs = Image.select(Image,Volume).join(Volume).where(Volume.id == title_id).order_by(Image.page)
+
+    # Get list of tags for this title
+    tags = Tag.select(Tag,TagRelation,Volume).join(TagRelation).join(Volume).where(Volume.id == title_id).order_by(Tag.name)
     
     # pass list of thumbnails to template
-    return render_template("title.html",title=volume.title,id=str(title_id),thumbs=thumbs)
+    return render_template("title.html",title=volume.title,id=str(title_id),thumbs=thumbs, tags=tags)
 
 # Render individual page image
 

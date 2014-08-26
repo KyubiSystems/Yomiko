@@ -11,3 +11,8 @@
 
 .title { color: #777; 
          text-transform: capitalize; }
+
+.tag { color: #fff;
+       padding: 4px;
+       background-color: #88d;
+       border-radius: 8px; }

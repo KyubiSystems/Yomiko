@@ -3,7 +3,7 @@ Yomiko
 
 **Comics/doujinshi reader application. Web-based, will work on desktop and tablet devices with swipe interface.**
 
-Scans one or more directories of ZIP, CBR or RAR archives and stores lists of images found. Generates thumbnails of cover/first pages, creates tags from parsing titles of ZIP files. Users can search by name/date/etc., filter archives by tags, or add tags of their own.
+Scans one or more directories of ZIP, CBZ, RAR or CBR archives and stores lists of images found. Generates thumbnails of individual pages, creates tags from parsing titles of ZIP files. Users can search by name/date/etc., filter archives by tags, or add tags of their own.
 
 Requirements
 ------------
@@ -18,5 +18,7 @@ Yomiko runs on the _Flask_ Python web framework.
 Options
 -------
 
-* "More Like this" to grab similar titles from download sites?
-* Cloud storage on Amazon S3?
+* Lazy loading on thumbnail pages to speed display
+* 7zip support (requires xz install)
+* Interface with download site apps -- "More like this" button?
+* Cloud storage on Dropbox, Amazon S3?
