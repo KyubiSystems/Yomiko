@@ -23,11 +23,22 @@ def index():
 
 # List of titles
 
-@app.route('/list')
+@app.route('/view/list')
 def plist():
-    return render_template("list.html")
 
-# Tag operations
+    vols = Volume.select().order_by(Volume.title)
+
+    return render_template("list.html", vols=vols)
+
+
+@app.route('/view/thumbs')
+def tlist():
+
+    vols = Volume.select().order_by(Volume.title)
+
+    return render_template("thumbs.html", vols=vols)
+
+# ---- Tag operations -----
 
 # Show all tags
 @app.route('/tags')
