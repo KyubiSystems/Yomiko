@@ -7,6 +7,7 @@ Werkzeug==0.9.4
 gevent==1.0
 greenlet==0.4.2
 itsdangerous==0.23
+natsort==3.4.1
 peewee==2.2.0
 progressbar==2.3
 pyparsing==2.0.1

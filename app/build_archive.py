@@ -12,6 +12,7 @@ import mimetypes
 import os
 
 import tag_parse as tag
+from natsort import natsorted
 from models import *
 from db_utils import create_db
 from image_utils import is_image, Page
@@ -74,6 +75,9 @@ def scan_archive_file(archives, filetype):
         # Filter member list for images
         members = filter(lambda x: is_image(x) is True, members)
         
+        # Sort members
+        members = natsorted(members)
+
         # Get number of images
         member_count = len(members)
 
