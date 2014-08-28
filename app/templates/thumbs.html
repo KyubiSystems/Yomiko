@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="title"><i class="fa fa-list"></i> Archive</h1>
+<div class="thumbcontainer" style="padding-left: 10px; padding-bottom: 10px; background-color: #ddf; ">
+{% for v in vols %}
+  <div class="item thumbtitle"><a href="{{ url_for('title', title_id=v.id) }}"><img src="{{ url_for('static', filename='thumbnails/{!s}/000.jpg'.format(v.id)) }}" vspace=5></a><br/><i class="fa fa-star-o"></i>&nbsp;<b>{{ v.title }}</b></div>
+{% endfor %}
+</div>
+<hr noshade/>
+{% endblock %}
+

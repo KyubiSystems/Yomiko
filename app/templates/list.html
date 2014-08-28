@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>List</h1>
-<h3>This is a test of template inheritance in Yomiko</h3>
+<h1 class="title"><i class="fa fa-list"></i> Archive</h1>
+<div class="thumbcontainer" style="padding-left: 10px; padding-bottom: 10px;">
+<ul>
+{% for v in vols %}
+  <li><a href="{{ url_for('title', title_id=v.id) }}">{{ v.title }}</a></li>
+{% endfor %}
+</ul>
+</div>
+<hr noshade/>
 {% endblock %}
 

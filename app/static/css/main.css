@@ -12,6 +12,9 @@
 .title { color: #777; 
          text-transform: capitalize; }
 
+.thumbtitle { height: 180px; font-size: 10px; line-height: 90%; text-overflow: ellipsis; }
+	      
+
 .tag { color: #fff;
        padding: 4px;
        background-color: #88d;
