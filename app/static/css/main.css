@@ -19,3 +19,12 @@
        padding: 4px;
        background-color: #88d;
        border-radius: 8px; }
+
+.pageholder { width: 100%;
+	      background-color: #000;
+	      text-align: center;
+	      }
+
+.page { max-height: 100%;
+	width: auto;
+      	}

@@ -1,0 +1,18 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ title_id }}/{{ page_num }}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- Yomiko CSS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+<div class="pageholder">
+<img class="page" src="{{ url_for('page', title_id=title_id, page_num=page_num) }}">
+</div>
+</body>
+</html>

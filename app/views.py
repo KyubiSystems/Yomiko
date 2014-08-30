@@ -171,6 +171,16 @@ def page(title_id, page_num):
     else:
         abort(500)
 
+# Test image display auto-size (responsive)
+@app.route('/auto/<int:title_id>/<int:page_num>')
+def autotest(title_id, page_num):
+
+    # Pass image details to HTML/CSS page which should responsively autoscale
+    # prep for implementation of image slider for page view
+
+    return render_template("autotest.html", title_id=title_id, page_num=page_num)
+
+
 # Error handling
 
 @app.errorhandler(404)
