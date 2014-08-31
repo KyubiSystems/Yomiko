@@ -9,11 +9,13 @@
 <!-- jQuery library -->
 <script src="//code.jquery.com/jquery-latest.min.js"></script>
 <!-- Unslider library -->
-<script src="//unslider.com/unslider.min.js"></script>
+<script src="{{ url_for('static', filename='js/unslider.min.js') }}"></script>
+<!-- Fullscreen library -->
+<script src="{{ url_for('static', filename='js/fullscreen.js') }}"></script>
 <!-- Yomiko CSS -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
 <script>
-$(function() {
+$( window ).load(function() {
     $('.manga').unslider({
                           autoplay: false,
                           delay: false,
