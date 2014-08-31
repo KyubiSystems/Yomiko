@@ -181,6 +181,22 @@ def autotest(title_id, page_num):
     return render_template("autotest.html", title_id=title_id, page_num=page_num)
 
 
+# Test Unslider display
+@app.route('/slide/<int:title_id>')
+def slide(title_id):
+
+    # Get title information
+    try:
+        volume = Volume.get(Volume.id == title_id)
+    except Volume.DoesNotExist:
+        abort(404)
+
+    # Get list of images for this title
+    pages = Image.select(Image,Volume).join(Volume).where(Volume.id == title_id).order_by(Image.page)
+
+    # Pass volume and page details to Unslider template
+    return render_template("slider.html", title_id=title_id, volume=volume, pages=pages)
+
 # Error handling
 
 @app.errorhandler(404)

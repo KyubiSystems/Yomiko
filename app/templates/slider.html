@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ volume.title }}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<!-- jQuery library -->
+<script src="//code.jquery.com/jquery-latest.min.js"></script>
+<!-- Unslider library -->
+<script src="//unslider.com/unslider.min.js"></script>
+<!-- Yomiko CSS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<script>
+$(function() {
+    $('.manga').unslider();
+});
+</script>
+</head>
+<body>
+<div class="manga">
+<ul>
+{% for p in pages %}
+<li><img class="page" src="{{ url_for('page', title_id=title_id, page_num=p.page) }}"></li>
+{% endfor %}
+</ul>
+</div>
+</body>
+</html>

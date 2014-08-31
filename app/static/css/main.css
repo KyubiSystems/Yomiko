@@ -20,6 +20,10 @@
        background-color: #88d;
        border-radius: 8px; }
 
+.manga { position: relative; overflow: auto; }
+    .manga li { list-style: none; }
+        .manga ul li { float: left; }
+
 .pageholder { width: 100%;
 	      background-color: #000;
 	      text-align: center;
