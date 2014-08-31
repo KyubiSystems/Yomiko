@@ -29,6 +29,9 @@
 	      text-align: center;
 	      }
 
-.page { max-height: 100%;
+.page { display: block;
+      	max-width: 1024px;
+        max-height: 1280px;
 	width: auto;
+	height: auto;
       	}
