@@ -9,9 +9,10 @@
 <!-- jQuery library -->
 <script src="//code.jquery.com/jquery-latest.min.js"></script>
 <!-- jQuery event swipe library -->
-<script src="//cdn.jsdelivr.net/jquery.event.swipe/0.5.2/jquery.event.swipe.min.js"></script>
+<script src="{{ url_for('static', filename='js/jquery.event.move.js') }}"></script>
+<script src="{{ url_for('static', filename='js/jquery.event.swipe.js') }}"></script>
 <!-- Unslider library -->
-<script src="{{ url_for('static', filename='js/unslider.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/unslider.js') }}"></script>
 <!-- Fullscreen library -->
 <script src="{{ url_for('static', filename='js/fullscreen.js') }}"></script>
 <!-- Yomiko CSS -->
@@ -28,6 +29,7 @@ $( window ).load(function() {
                          });
 });
 </script>
+
 </head>
 <body>
 <div class="mangacontainer">
