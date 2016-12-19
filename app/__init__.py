@@ -1,10 +1,9 @@
 """
 Yomiko Comics Reader
-(c) 2014 Kyubi Systems: www.kyubi.co.uk
+(c) 2016 Kyubi Systems: www.kyubi.co.uk
 """
 
-from flask import Flask
-from flask import g
+from flask import Flask, g
 
 # Import configuration
 from config import *
