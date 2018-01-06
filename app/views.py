@@ -3,15 +3,14 @@ Yomiko Comics Reader
 (c) 2016 Kyubi Systems: www.kyubi.co.uk
 """
 
-import os
 import zipfile
-import rarfile
-import fnmatch
-from config import *
-from flask import Flask, abort, render_template, send_file
-from models import *
 from io import BytesIO
-from app.image_utils import is_image
+
+import rarfile
+from flask import Flask, abort, render_template, send_file
+
+from app.config import *
+from app.models import Volume, Tag, TagRelation, Image, db
 
 
 app = Flask(__name__)
@@ -205,5 +204,5 @@ def page_not_found(error):
 
 @app.errorhandler(500)
 def internal_error(error):
-    db.session.rollback()
+    #db.session.rollback()
     return render_template("500.html"), 500

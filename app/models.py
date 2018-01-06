@@ -21,7 +21,7 @@ class BaseModel(Model):
 # Volume class associated with ZIP or RAR file
 class Volume(BaseModel):
     title = CharField()
-    filename = CharField(unique=True) 
+    filename = CharField(unique=True)
     md5 = CharField()
     filetype = CharField()
     num = IntegerField()
@@ -34,7 +34,7 @@ class Volume(BaseModel):
     deleted_at = DateTimeField(null=True)
 
     class Meta:
-        order_by = ('title',) 
+        order_by = ('title',)
 
     def __unicode__(self):
         return self.title
