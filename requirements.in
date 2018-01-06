@@ -1,0 +1,8 @@
+gevent
+Flask
+natsort
+peewee
+Pillow
+pylint
+progressbar
+rarfile

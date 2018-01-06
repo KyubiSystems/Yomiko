@@ -11,7 +11,7 @@ from config import *
 from flask import Flask, abort, render_template, send_file
 from models import *
 from io import BytesIO
-from image_utils import is_image
+from app.image_utils import is_image
 
 
 app = Flask(__name__)
@@ -50,7 +50,7 @@ def alltags():
 
 # Show titles associated with given tag
 @app.route('/tags/<int:tag_id>')
-def showtag():
+def showtag(tag_id):
 
     try:
         tags = Tag.select().where(Tag.id == tag_id).order_by(Tag.name)
@@ -111,13 +111,13 @@ def title(title_id):
         abort(404)
 
     # Get list of images for this title
-    thumbs = Image.select(Image,Volume).join(Volume).where(Volume.id == title_id).order_by(Image.page)
+    thumbs = Image.select(Image, Volume).join(Volume).where(Volume.id == title_id).order_by(Image.page)
 
     # Get list of tags for this title
-    tags = Tag.select(Tag,TagRelation,Volume).join(TagRelation).join(Volume).where(Volume.id == title_id).order_by(Tag.name)
+    tags = Tag.select(Tag, TagRelation, Volume).join(TagRelation).join(Volume).where(Volume.id == title_id).order_by(Tag.name)
     
     # pass list of thumbnails to template
-    return render_template("title.html",title=volume.title,id=str(title_id),thumbs=thumbs, tags=tags)
+    return render_template("title.html", title=volume.title, id=str(title_id), thumbs=thumbs, tags=tags)
 
 # Render individual page image
 
@@ -156,16 +156,16 @@ def page(title_id, page_num):
     elif volume.filetype == 'rar':
     
         # TODO: Error check on archive open
-        z = rarfile.RarFile(INPUT_PATH+volume.filename)
+        rar = rarfile.RarFile(INPUT_PATH+volume.filename)
         
         # Get page binary data
         # TODO: Error checking
-        foo = z.read(page.filename)
+        rardata = rar.read(page.filename)
         
-        z.close()
+        rar.close()
 
     # Return extracted image to browser
-        return send_file(BytesIO(foo), mimetype=page.mimetype)
+        return send_file(BytesIO(rardata), mimetype=page.mimetype)
 
     # unrecognised archive type
     else:
@@ -192,7 +192,7 @@ def slide(title_id):
         abort(404)
 
     # Get list of images for this title
-    pages = Image.select(Image,Volume).join(Volume).where(Volume.id == title_id).order_by(Image.page)
+    pages = Image.select(Image, Volume).join(Volume).where(Volume.id == title_id).order_by(Image.page)
 
     # Pass volume and page details to Unslider template
     return render_template("slider.html", title_id=title_id, volume=volume, pages=pages)
@@ -204,7 +204,6 @@ def page_not_found(error):
     return render_template("404.html"), 404
 
 @app.errorhandler(500)
-def internal_error(errror):
+def internal_error(error):
     db.session.rollback()
     return render_template("500.html"), 500
-

@@ -5,7 +5,7 @@ Yomiko Comics Reader
 
 import re
 import os.path
-from pyparsing import *
+from pyparsing import nestedExpr
 
 # separate doujin filenames into titles and characteristic tags
 
@@ -17,10 +17,10 @@ def split_tags(data):
     data = os.path.splitext(os.path.basename(data))[0]
 
     # substitute all brackets with pipes
-    data = re.sub('[\(\[\)\]\{\}]','|',data)
+    data = re.sub(r'[]([){}]', '|', data)
 
     # split by pipes, dropping empty entries
-    tags = re.split('\|', data)
+    tags = re.split(r'|', data)
     tags = filter(None, tags)
 
     # Strip whitespace from tags
@@ -39,13 +39,13 @@ def split_title_tags(data):
     data = os.path.splitext(os.path.basename(data))[0]
 
     # substitute left parens with round bracket
-    data = re.sub('[\{\[]', '(', data)
+    data = re.sub(r'[{[]', '(', data)
 
     # substitute underscores
     data = data.replace('_', ' ')
 
     # substitute right parens with round bracket
-    data = re.sub('[\}\]]', ')', data)
+    data = re.sub(r'[]}]', ')', data)
 
     # Suppress bracketed sections to extract title
     # Will need to catch exceptions here
@@ -58,7 +58,7 @@ def split_title_tags(data):
     data = data.replace(title, '')
 
     # Split by remaining round brackets
-    tags = re.split('\(|\)', data)
+    tags = re.split(r'(|)', data)
 
     # Strip whitespace from tags
     tags = [t.strip() for t in tags]
@@ -68,9 +68,3 @@ def split_title_tags(data):
 
     # Return title string and tag list
     return title, tags
-
-
-
-
-
-

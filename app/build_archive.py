@@ -4,19 +4,20 @@ Yomiko Comics Reader
 (c) 2016 Kyubi Systems: www.kyubi.co.uk
 """
 
-import zipfile
-import rarfile
 import fnmatch
 import hashlib
 import mimetypes
 import os
-
-import tag_parse as tag
+import zipfile
+import rarfile
 from natsort import natsorted
-from models import *
-from db_utils import create_db
-from image_utils import is_image, Page
 from progressbar import Bar, ProgressBar, Counter, ETA
+
+import app.tag_parse as tag
+from app.config import INPUT_PATH, THUMB_PATH, DB_FILE
+from app.models import Volume, Tag, TagRelation, Image, DoesNotExist
+from app.db_utils import create_db
+from app.image_utils import is_image, Page
 
 zips = []
 rars = []
@@ -66,8 +67,8 @@ def scan_archive_file(archives, filetype):
                 raise
 
         else:
-        
-            raise ValueError("Unrecognised archive type value: {}").format(filetype)
+
+            raise ValueError(u'Unrecognised archive type value: {}'.format(filetype))
 
         # Get members from archive
         members = myfile.namelist()
@@ -158,8 +159,6 @@ def scan_archive_file(archives, filetype):
 
         # Close archive
         myfile.close()
-
-        
 
 # Find ZIPs and RARs in input directory
 for f in os.listdir(INPUT_PATH):
