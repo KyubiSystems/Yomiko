@@ -11,7 +11,7 @@ from PIL import Image, ImageFilter
 from io import BytesIO
 from os import rename, makedirs, path
 
-from config import *
+from .config import *
 
 # determine whether filename has image extension
 def is_image(f):
@@ -44,7 +44,7 @@ class Page(BytesIO):
             im = Image.open(BytesIO(self.get()))
             return im
         except:
-            print "Unable to open image"
+            print("Unable to open image")
 
     # Save binary object to file as JPEG image
     # Check for directory existence at volume level?
@@ -55,7 +55,7 @@ class Page(BytesIO):
             im.convert('RGB').save(filename, 'JPEG', quality=90)
             return filename
         except IOError:
-            print "Unable to save image"
+            print("Unable to save image")
             raise
 
     # Return image size array
@@ -70,7 +70,7 @@ class Page(BytesIO):
         try:
             im.thumbnail(size, Image.ANTIALIAS)
         except:
-            print "Unable to create thumbnail"
+            print("Unable to create thumbnail")
             raise
 
         # im.save(outfile, format, options...)
@@ -78,5 +78,5 @@ class Page(BytesIO):
         try:
             im.convert('RGB').save(thumbname, 'JPEG', quality=90)
         except IOError:
-            print "Unable to save thumbnail"
+            print("Unable to save thumbnail")
             raise

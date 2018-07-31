@@ -6,8 +6,8 @@ Yomiko Comics Reader
 from flask import Flask, g
 
 # Import configuration
-from config import *
-from models import *
+from .config import *
+from .models import *
 
 app = Flask(__name__)
 
@@ -28,5 +28,5 @@ def after_request(response):
     return response
 
 # Import views
-from views import *
+from .views import *
 
