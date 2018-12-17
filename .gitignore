@@ -3,8 +3,6 @@
 #*
 .idea/
 venv.yo
-venv3.yo
 app/db/Yomiko.db
-app/titletest.py
 app/test/
 app/static/thumbnails/*
