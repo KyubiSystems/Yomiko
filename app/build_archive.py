@@ -50,9 +50,9 @@ def scan_archive_file(archives, filetype):
             try:
                 myfile = zipfile.ZipFile(INPUT_PATH+f, 'r')
             except zipfile.BadZipfile as e:
-                raise Exception(u'"{}" is not a valid ZIP file! Error: {}'.format(f, e))
+                raise Exception('"{}" is not a valid ZIP file! Error: {}'.format(f, e))
             except:
-                print u'Unknown error: ZIP extraction failed: {}'.format(f)
+                print('Unknown error: ZIP extraction failed: {}'.format(f))
                 raise
 
         # Scan RAR file
@@ -61,20 +61,20 @@ def scan_archive_file(archives, filetype):
             try:
                 myfile = rarfile.RarFile(INPUT_PATH+f, 'r')
             except (rarfile.BadRarFile, rarfile.NotRarFile) as e:
-                raise Exception(u'"{}" is not a valid RAR file! Error: {}'.format(f, e))
+                raise Exception('"{}" is not a valid RAR file! Error: {}'.format(f, e))
             except:
-                print u'Unknown error: RAR extraction failed: {}'.format(f)
+                print('Unknown error: RAR extraction failed: {}'.format(f))
                 raise
 
         else:
 
-            raise ValueError(u'Unrecognised archive type value: {}'.format(filetype))
+            raise ValueError('Unrecognised archive type value: {}'.format(filetype))
 
         # Get members from archive
         members = myfile.namelist()
 
         # Filter member list for images
-        members = filter(lambda x: is_image(x) is True, members)
+        members = [x for x in members if is_image(x) is True]
         
         # Sort members
         members = natsorted(members)
@@ -176,9 +176,9 @@ for f in os.listdir(INPUT_PATH):
 
 # Check for existence of SQLite3 database, creating if necessary
 if not os.path.exists(DB_FILE):
-    print "SQLite database not found, creating file " + DB_FILE + "...",
+    print("SQLite database not found, creating file " + DB_FILE + "...", end=' ')
     create_db()
-    print "done."
+    print("done.")
 
 # Scan and process ZIP files
 scan_archive_file(zips, 'zip')

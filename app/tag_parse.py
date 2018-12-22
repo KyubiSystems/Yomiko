@@ -21,7 +21,7 @@ def split_tags(data):
 
     # split by pipes, dropping empty entries
     tags = re.split(r'|', data)
-    tags = filter(None, tags)
+    tags = [_f for _f in tags if _f]
 
     # Strip whitespace from tags
     tags = [t.strip() for t in tags]
@@ -64,7 +64,7 @@ def split_title_tags(data):
     tags = [t.strip() for t in tags]
 
     # Drop empty entries
-    tags = filter(None, tags)
+    tags = [_f for _f in tags if _f]
 
     # Return title string and tag list
     return title, tags

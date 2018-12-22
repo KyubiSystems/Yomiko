@@ -3,7 +3,7 @@
 Yomiko Comics Reader
 (c) 2016 Kyubi Systems: www.kyubi.co.uk
 """
-from models import *
+from .models import *
 
 
 # Create SQLite3 tables
