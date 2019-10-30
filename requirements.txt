@@ -17,7 +17,7 @@ markupsafe==1.1.1         # via jinja2
 mccabe==0.6.1             # via pylint
 natsort==6.0.0
 peewee==3.10.0
-pillow==6.1.0
+pillow==6.2.0
 progressbar==2.5
 pylint==2.3.1
 rarfile==3.0
