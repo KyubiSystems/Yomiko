@@ -3,7 +3,7 @@
 Yomiko Comics Reader
 (c) 2016 Kyubi Systems: www.kyubi.co.uk
 """
-from app.config import *
+from app.config import APP_PATH, APP_VERSION, DB_FILE, DEBUG, INPUT_PATH, THUMB_HEIGHT, THUMB_PATH, THUMB_WIDTH
 from peewee import *
 from datetime import datetime
 
