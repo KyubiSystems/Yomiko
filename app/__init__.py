@@ -5,9 +5,14 @@ Yomiko Comics Reader
 
 from flask import Flask, g
 
+# Set path for local imports
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname("__file__"), '..')))
+
 # Import configuration
-from config import *
-from models import *
+from app.config import APP_PATH, APP_VERSION, DB_FILE, DEBUG, INPUT_PATH, THUMB_HEIGHT, THUMB_PATH, THUMB_WIDTH
+from app.models import *
 
 app = Flask(__name__)
 
@@ -28,5 +33,5 @@ def after_request(response):
     return response
 
 # Import views
-from views import *
+from app.views import *
 
