@@ -13,7 +13,9 @@ Requirements
 * See requirements.txt pip requirements file for a list of Python prerequisites.
 * A database, SQLite3 by default.
 * Pillow (Python Imaging Library fork) with libjpeg support for thumbnail generation.
-* Command line 'unrar' for accessing RAR archives. Can be installed on OSX with 'brew install unrar'.
+* Command line 'unrar' for accessing RAR archives.
+   - **Windows:** [scoop install unrar](http://scoop.sh)
+   - **OSX:** [brew install unrar](http://brew.sh)
 
 Yomiko runs on the _Flask_ Python web framework.
 
@@ -22,5 +24,10 @@ Planned
 
 - [ ] Lazy loading on thumbnail pages to speed display
 - [ ] 7zip support (requires xz install)
+- [ ] Cloud storage on GDrive, Amazon S3?
 - [ ] Interface with download site apps -- "More like this" button?
-- [ ] Cloud storage on Dropbox, Amazon S3?
+
+License
+-------
+
+Yomiko uses the **GPL Version 3.0 license**.
