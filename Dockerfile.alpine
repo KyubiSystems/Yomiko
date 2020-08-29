@@ -1,7 +1,7 @@
 FROM python:alpine
 MAINTAINER Kyubi Systems 2020
 
-LABEL version="1.0" maintainer="Kyubi Systems <admin@kyubi.co.uk>"
+LABEL version="1.0.1" maintainer="Kyubi Systems <admin@kyubi.co.uk>"
 
 WORKDIR /usr/src/app
 
@@ -10,9 +10,12 @@ RUN apk add --no-cache --virtual .build-deps gcc musl-dev
 RUN apk add --no-cache --virtual freetype-dev jpeg-dev libpng-dev
 RUN apk add --no-cache --virtual cython
 RUN pip install --no-cache-dir -r requirements.txt
+RUN apk add --no-cache --virtual unrar xz
 RUN apk del .build-deps gcc musl-dev
 
 COPY . .
+
+RUN touch .docker
 
 EXPOSE 5000
 
