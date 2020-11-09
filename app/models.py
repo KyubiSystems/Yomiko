@@ -5,7 +5,7 @@ Yomiko Comics Reader
 """
 from datetime import datetime
 from peewee import Model, SqliteDatabase, CharField, IntegerField, TextField, DateTimeField,\
-     BooleanField, ForeignKeyField
+     BooleanField, ForeignKeyField, DoesNotExist
 from app.config import DB_FILE
 
 # define database

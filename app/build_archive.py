@@ -44,7 +44,7 @@ def scan_archive_file(archives, filetype):
     # Iterate over input list of archive files
     for f in archives:
 
-        # Attempt to scan ZIP file        
+        # Attempt to scan ZIP file
         if filetype == 'zip':
 
             try:
@@ -75,7 +75,7 @@ def scan_archive_file(archives, filetype):
 
         # Filter member list for images
         members = [x for x in members if is_image(x) is True]
-        
+
         # Sort members
         members = natsorted(members)
 
@@ -106,10 +106,10 @@ def scan_archive_file(archives, filetype):
                 TagRelation.create(relVolume=vol.id, relTag=new_tag.id)
 
             # Reset page counter (assume cover is page 0)
-            page = 0  
+            page = 0
 
             # Generate display title
-            disptitle=title[:20]
+            disptitle = title[:20]
             if len(disptitle) < len(title):
                 disptitle = disptitle+'...'
             disptitle.ljust(24)
@@ -117,7 +117,7 @@ def scan_archive_file(archives, filetype):
             # initialise progress bar display
             widgets = [disptitle+': ', Counter(),'/'+str(member_count)+' ', Bar(marker='=', left='[', right=']'), ETA()]
             pbar = ProgressBar(widgets=widgets, maxval=member_count).start()
-            
+
             # Attempt to create thumbnail directory if it doesn't already exist
             path = THUMB_PATH + str(vol.id)
 
@@ -142,18 +142,18 @@ def scan_archive_file(archives, filetype):
 
                 # Read data from archive
                 rawdata = myfile.read(m)
-                
+     
                 # Generate Page object
                 p = Page(rawdata)
 
                 # Create thumbnail
                 p.thumb(path+'/'+'{:03d}'.format(page)+'.jpg')
-                
+
                 # Update progress bar
                 pbar.update(page)
                 page += 1
 
-            
+         
             # end progress bar
             pbar.finish()
 
