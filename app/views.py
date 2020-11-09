@@ -1,6 +1,6 @@
 """
 Yomiko Comics Reader
-(c) 2016 Kyubi Systems: www.kyubi.co.uk
+(c) 2016-2020 Kyubi Systems: www.kyubi.co.uk
 """
 
 import zipfile

@@ -7,11 +7,13 @@ Yomiko Comics Reader
 # Image handling utility
 # Generates preview thumbnails
 
-from PIL import Image, ImageFilter
+import os
 from io import BytesIO
-from os import rename, makedirs, path
+from PIL import Image
 
-from .config import *
+
+
+from .config import THUMB_WIDTH, THUMB_HEIGHT
 
 # determine whether filename has image extension
 def is_image(f):
@@ -62,7 +64,7 @@ class Page(BytesIO):
     def size(self):
         return self.img().size
 
-    # Generate thumbnail from Page binary object 
+    # Generate thumbnail from Page binary object
     # set default size in config, can override
     # then save at path thumbname
     def thumb(self, thumbname, size=(THUMB_WIDTH, THUMB_HEIGHT)):
