@@ -9,6 +9,7 @@ COPY requirements.txt ./
 RUN apk add --no-cache --virtual .build-deps gcc musl-dev
 RUN apk add --no-cache --virtual freetype-dev jpeg-dev libpng-dev
 RUN apk add --no-cache --virtual cython
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 RUN apk add --no-cache --virtual unrar xz
 RUN apk del .build-deps gcc musl-dev
