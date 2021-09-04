@@ -3,7 +3,7 @@
 Yomiko Comics Reader
 (c) 2016 Kyubi Systems: www.kyubi.co.uk
 """
-from .models import *
+from .models import Volume, Tag, Image, TagRelation, SqliteDatabase, DB_FILE
 
 
 # Create SQLite3 tables
@@ -42,4 +42,3 @@ def truncate_db():
 
     delete_query = Volume.delete().where(True)
     delete_query.execute()
-

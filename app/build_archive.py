@@ -25,11 +25,11 @@ rars = []
 
 # Get MD5 checksum of input file
 def md5sum(filename, blocksize=65536):
-    hash = hashlib.md5()
+    file_hash = hashlib.md5()
     with open(filename, "r+b") as f:
         for block in iter(lambda: f.read(blocksize), ""):
-            hash.update(block)
-    return hash.hexdigest()
+            file_hash.update(block)
+    return file_hash.hexdigest()
 
 
 def scan_archive_file(archives, filetype):
@@ -50,7 +50,7 @@ def scan_archive_file(archives, filetype):
             try:
                 myfile = zipfile.ZipFile(INPUT_PATH+f, 'r')
             except zipfile.BadZipfile as e:
-                raise Exception('"{}" is not a valid ZIP file! Error: {}'.format(f, e))
+                raise Exception('"{}" is not a valid ZIP file! Error: {}'.format(f, e)) from e
             except:
                 print('Unknown error: ZIP extraction failed: {}'.format(f))
                 raise
@@ -61,7 +61,7 @@ def scan_archive_file(archives, filetype):
             try:
                 myfile = rarfile.RarFile(INPUT_PATH+f, 'r')
             except (rarfile.BadRarFile, rarfile.NotRarFile) as e:
-                raise Exception('"{}" is not a valid RAR file! Error: {}'.format(f, e))
+                raise Exception('"{}" is not a valid RAR file! Error: {}'.format(f, e)) from e
             except:
                 print('Unknown error: RAR extraction failed: {}'.format(f))
                 raise
@@ -131,11 +131,11 @@ def scan_archive_file(archives, filetype):
             for m in members:
 
                 # Guess mimetype for image from filename
-                (mimetype, encoding) = mimetypes.guess_type(m)
+                (mimetype, _) = mimetypes.guess_type(m)
 
                 # Create record in Image table
                 # >>> TODO: image record should include image height & width
-                im = Image.create(volume=vol.id, page=page, mimetype=mimetype, filename=m)
+                Image.create(volume=vol.id, page=page, mimetype=mimetype, filename=m)
 
                 # Generate thumbnails
                 # >>> TODO: May spawn greenlets to do this?

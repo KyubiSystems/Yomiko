@@ -115,7 +115,7 @@ def title(title_id):
 
     """
     Render title (grid of thumbnails).
-    Image 0 as blurred CSS background?
+    TODO: Image 0 as blurred CSS background?
     """
 
     # Get title information
@@ -129,7 +129,7 @@ def title(title_id):
 
     # Get list of tags for this title
     tags = Tag.select(Tag, TagRelation, Volume).join(TagRelation).join(Volume).where(Volume.id == title_id).order_by(Tag.name)
-    
+
     # pass list of thumbnails to template
     return render_template("title.html", title=volume.title,
                            id=str(title_id), thumbs=thumbs, tags=tags)
@@ -141,7 +141,7 @@ def page_image(title_id, page_num):
 
     """Get archive file corresponding to title ID
     and member file corresponding to page number
-    
+
     Returns extracted image to browser"""
 
     # Get title information

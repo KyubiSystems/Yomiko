@@ -38,10 +38,10 @@ class Volume(BaseModel):
         order_by = ('title',)
 
     def __unicode__(self):
-        return self.title
+        return self.title + ' ' + self.filename
 
     def __str__(self):
-        return self.__unicode__()
+        return self.title + ' ' + self.filename
 
     @property
     def is_read(self):
@@ -61,10 +61,10 @@ class Tag(BaseModel):
         order_by = ('name',)
 
     def __unicode__(self):
-        return self.name
+        return self.name + ' ' + self.descr
 
     def __str__(self):
-        return self.__unicode__()
+        return self.name + ' ' + self.descr
 
 
 # TagRelation for many-to-many mapping between Tag and Volume
@@ -89,7 +89,7 @@ class Image(BaseModel):
         order_by = ('page',)
 
     def __unicode__(self):
-        return self.filename
+        return self.filename + ' ' + self.page
 
     def __str__(self):
-        return self.__unicode__()
+        return self.filename + ' ' + self.page

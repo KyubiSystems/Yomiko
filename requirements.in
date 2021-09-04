@@ -4,5 +4,6 @@ natsort
 peewee
 Pillow
 pylint
+pyparsing
 progressbar
 rarfile

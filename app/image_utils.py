@@ -11,8 +11,6 @@ import os
 from io import BytesIO
 from PIL import Image
 
-
-
 from .config import THUMB_WIDTH, THUMB_HEIGHT
 
 # determine whether filename has image extension
@@ -21,11 +19,11 @@ def is_image(f):
 # list of defined image extensions
     IMAGE_EXTS = ['.gif', '.GIF', '.png', '.PNG', '.jpg', '.JPG', '.jpeg', '.JPEG']
 
-    name, extension = os.path.splitext(f)
+    _, extension = os.path.splitext(f)
     if extension in IMAGE_EXTS:
         return True
-    else:
-        return False
+
+    return False
 
 # Clean up class initialisation
 # Better exception handling
@@ -46,7 +44,7 @@ class Page(BytesIO):
             im = Image.open(BytesIO(self.get()))
             return im
         except:
-            print("Unable to open image")
+            print("Unable to open image") # TODO: handle missing image exception
 
     # Save binary object to file as JPEG image
     # Check for directory existence at volume level?
