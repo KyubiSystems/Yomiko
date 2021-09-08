@@ -142,7 +142,7 @@ def scan_archive_file(archives, filetype):
 
                 # Read data from archive
                 rawdata = myfile.read(m)
-     
+
                 # Generate Page object
                 p = Page(rawdata)
 
@@ -153,7 +153,7 @@ def scan_archive_file(archives, filetype):
                 pbar.update(page)
                 page += 1
 
-         
+
             # end progress bar
             pbar.finish()
 

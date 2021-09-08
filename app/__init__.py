@@ -3,11 +3,11 @@ Yomiko Comics Reader
 (c) 2016 Kyubi Systems: www.kyubi.co.uk
 """
 
+import os
+import sys
 from flask import Flask, g
 
 # Set path for local imports
-import os
-import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname("__file__"), '..')))
 
 # Import configuration

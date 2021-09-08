@@ -19,7 +19,7 @@ Requirements
 
 Yomiko runs on the _Flask_ Python web framework.
 
-Planned 
+Planned
 -------
 
 - [ ] Lazy loading on thumbnail pages to speed display
@@ -31,3 +31,5 @@ License
 -------
 
 Yomiko uses the **GPL Version 3.0 license**.
+
+The sample manga 'Ubunchu!' is licensed under the **Creative Commons CC-BY-NC license**.

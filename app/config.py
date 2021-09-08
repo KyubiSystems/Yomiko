@@ -14,7 +14,12 @@ DEBUG = True
 DB_FILE = APP_PATH + '/db/Yomiko.db'
 
 # Set input file path to scan for RAR/ZIP files
-INPUT_PATH = os.path.expanduser('~/Downloads/Manga/')
+# 
+# - vvvvvvvv CHANGE THIS vvvvvvvvv -
+# 
+# To scan files in your home area, use e.g.
+# INPUT_PATH = os.path.expanduser('~/Downloads/Manga/')
+INPUT_PATH = APP_PATH + '/sample/'
 
 # Set path for thumbnail store
 THUMB_PATH = APP_PATH + '/static/thumbnails/'
