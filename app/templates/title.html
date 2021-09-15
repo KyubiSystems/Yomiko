@@ -4,9 +4,9 @@
 {% for tag in tags %}
   <span class="tag">{{ tag.name }}&nbsp;<i class="fa fa-minus-square"></i></span>
 {% endfor %}
-<div class="thumbcontainer" style="padding-left: 10px; padding-bottom: 10px; background-image: url('{{ url_for('page', title_id=id, page_num=0) }}'); background-size: cover; background-repeat: none;">
+<div class="thumbcontainer" style="padding-left: 10px; padding-bottom: 10px;  background-image: url('{{ url_for('page_image', title_id=id, page_num=0) }}'); background-size: cover; background-repeat: none;">
 {% for t in thumbs %}
-  <div class="item"><a href="{{ url_for('page', title_id=id, page_num=t.page) }}"><img src="{{ url_for('static', filename='thumbnails/{!s}/{:03d}.jpg'.format(id, t.page)) }}"></a><br/><i class="fa fa-star-o"></i>&nbsp;<b>{{ t.page }}</b></div>
+  <div class="item"><a href="{{ url_for('page_image', title_id=id, page_num=t.page) }}"><img src="{{ url_for('static', filename='thumbnails/{!s}/{:03d}.jpg'.format(id, t.page)) }}"></a><br/><i class="fa fa-star-o"></i>&nbsp;<b>{{ t.page }}</b></div>
 {% endfor %}
 </div>
 <hr noshade/>
