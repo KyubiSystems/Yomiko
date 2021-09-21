@@ -18,8 +18,8 @@ DB_FILE = APP_PATH + '/db/Yomiko.db'
 # - vvvvvvvv CHANGE THIS vvvvvvvvv -
 # 
 # To scan files in your home area, use e.g.
-# INPUT_PATH = os.path.expanduser('~/Downloads/Manga/')
-INPUT_PATH = APP_PATH + '/sample/'
+INPUT_PATH = os.path.expanduser('~/Downloads/Manga/')
+# INPUT_PATH = APP_PATH + '/sample/'
 
 # Set path for thumbnail store
 THUMB_PATH = APP_PATH + '/static/thumbnails/'
@@ -29,4 +29,4 @@ THUMB_WIDTH = 90
 THUMB_HEIGHT = 125
 
 # Set version string
-APP_VERSION = 'YomikoCR/1.0.3'
+APP_VERSION = 'YomikoCR/1.0.4'

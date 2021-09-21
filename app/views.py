@@ -60,9 +60,12 @@ def show_tag(tag_id):
     try:
         tags = Tag.select().where(Tag.id == tag_id).order_by(Tag.name)
     except Tag.DoesNotExist:
-        abort(404)
+        return render_template("error.html", response='Tag '+tag_id+' does not exist')
 
-    return render_template("tags.html", tags=tags)
+    # Filter Volume on given Tag ID
+
+    t = Volume.select().join(Tag).where(Tag.id == tag_id).order_by(Volume.title)
+    return render_template("tag.html", tags=tags, title=t)
 
 @app.route('/tags/<int:tag_id>/edit')
 def edit_tag(tag_id):
@@ -74,9 +77,9 @@ def edit_tag(tag_id):
     try:
         tag = Tag.get(id == tag_id)
     except Tag.DoesNotExist:
-        abort(404)
+        return render_template("error.html", response='Tag '+tag_id+' does not exist')
 
-    return render_template("tags.html", tags=tag)
+    return render_template("tag_edit.html", tag=tag)
 
 @app.route('/tags/<int:tag_id>/delete')
 def delete_tag(tag_id):
@@ -85,12 +88,18 @@ def delete_tag(tag_id):
     Delete Tag tag_id from DB
     """
 
+    # Check Tag exists
+
     try:
         tag = Tag.get(id == tag_id)
     except Tag.DoesNotExist:
-        abort(404)
+        return render_template("error.html", response='Tag '+tag_id+' does not exist')
 
-    return render_template("tags.html", tags=tag)
+    # Delete Tag instance from DB
+
+    tag.delete_instance()
+
+    return render_template("tag_deleted.html", tag_id=tag_id)
 
 @app.route('/filter/<filter_string>')
 def filter_tags(filter_string):
@@ -98,31 +107,43 @@ def filter_tags(filter_string):
     """
     Display list of titles filtered by tags
     filter_string is dot-separated list of tag IDs
+
+    Check that each tag id exists
     """
+    filter_list=[]
+    filters=filter_string.split=(".")
 
-    # TODO: Check how to do filter search on titles
+    for x in filters:
+        try:
+            tag=Tag.get(id == x)
+        except Tag.DoesNotExist:
+            continue
 
-    return render_template("tags.html")
+        filter_list.append(x)
+
+    # Filter titles on list of tag IDs
+
+    t = Volume.select().join(Tag).where(Tag.id.in_(filter_list))
+    return render_template("tags.html", tags=filter_list, title=t)
 
 @app.route('/settings')
 def settings():
     """Display application settings page"""
 
-    return render_template("settings.html")
+    return render_template("settings.html", settings=INPUT_PATH)
 
 @app.route('/title/<int:title_id>')
 def title(title_id):
 
     """
-    Render title (grid of thumbnails).
-    TODO: Image 0 as blurred CSS background?
+    Render title (grid of page thumbnails).
     """
 
     # Get title information
     try:
         volume = Volume.get(Volume.id == title_id)
     except Volume.DoesNotExist:
-        abort(404)
+        render_template("error.html", response="Volume "+title_id+" does not exist")
 
     # Get list of images for this title
     thumbs = Image.select(Image, Volume).join(Volume).where(Volume.id == title_id).order_by(Image.page)
@@ -139,23 +160,25 @@ def title(title_id):
 @app.route('/page/<int:title_id>/<int:page_num>')
 def page_image(title_id, page_num):
 
-    """Get archive file corresponding to title ID
+    """
+    Get archive file corresponding to title ID
     and member file corresponding to page number
 
-    Returns extracted image to browser"""
+    Returns extracted image to browser
+    """
 
     # Get title information
     try:
         volume = Volume.get(Volume.id == title_id)
     except Volume.DoesNotExist:
-        abort(404)
+        return render_template("error.html", response="Volume "+title_id+" does not exist")
 
     # Get page information
     try:
         page = Image.select().join(Volume).where((Volume.id == title_id)
                                                  & (Image.page == page_num)).get()
     except Image.DoesNotExist:
-        abort(404)
+        return render_template("error.html", response="Image "+page_num+" does not exist")
 
     if volume.filetype == 'zip':
 
@@ -163,8 +186,10 @@ def page_image(title_id, page_num):
         z = zipfile.ZipFile(INPUT_PATH+volume.filename)
 
         # Get page binary data
-        # TODO: Error checking
-        zf = z.read(page.filename)
+        try:
+            zf = z.read(page.filename)
+        except zipfile.BadZipFile:
+            return render_template("error.html", response="Bad archive file: "+volume.filename)
 
         z.close()
 
@@ -177,8 +202,12 @@ def page_image(title_id, page_num):
         rar = rarfile.RarFile(INPUT_PATH+volume.filename)
 
         # Get page binary data
-        # TODO: Error checking
-        rardata = rar.read(page.filename)
+        # There must be a cleaner way of fixing paths, but pathlib doesn't seem to work
+        try:
+            rarpath = str(page.filename).replace('\\','/')
+            rardata = rar.read(rarpath)
+        except rarfile.NoRarEntry:
+            return render_template("error.html", response="No such file: "+rarpath+" in "+volume.filename)
 
         rar.close()
 
@@ -187,7 +216,7 @@ def page_image(title_id, page_num):
 
     # unrecognised archive type
     else:
-        abort(500)
+        return render_template("error.html", response="Unrecognised archive type: "+volume.filename)
 
 # Test image display auto-size (responsive)
 @app.route('/auto/<int:title_id>/<int:page_num>')
