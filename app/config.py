@@ -29,4 +29,4 @@ THUMB_WIDTH = 90
 THUMB_HEIGHT = 125
 
 # Set version string
-APP_VERSION = 'YomikoCR/1.0.4'
+APP_VERSION = 'YomikoCR/1.0.5'

@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>{{ volume.title }}</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="description" content="Yomiko: {{ volume.title }}">
+<meta name="author" content="Application code (C) Kyubi Systems 2021">
+<!-- Tiny Slider CSS-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.3/tiny-slider.css">
+<!--[if (lt IE 9)]><script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.3/min/tiny-slider.helper.ie8.js"></script><![endif]-->
+<!-- Fullscreen library -->
+<script src="{{ url_for('static', filename='js/fullscreen.js') }}"></script>
+<!-- Yomiko CSS -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<script type="module">
+    import {tns} from 'https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js';
+  
+    var slider = tns({
+      container: '.manga',
+      slideBy: 'page',
+      lazyload: true,
+      lazyloadSelector: '.manga-lazy-img',
+      autoplay: false
+    });
+</script> 
+</head>
+<body>
+<div class="mangacontainer">
+<div class="manga">
+<ul>
+{% for p in pages %}
+<li><img class="page manga-lazy-img" data-src="{{ url_for('page', title_id=title_id, page_num=p.page) }}"></li>
+{% endfor %}
+</ul>
+</div>
+</div>
+</body>
+</html>
