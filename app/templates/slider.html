@@ -36,7 +36,7 @@ $( window ).load(function() {
 <div class="manga">
 <ul>
 {% for p in pages %}
-<li><img class="page" src="{{ url_for('page', title_id=title_id, page_num=p.page) }}"></li>
+<li><img class="page" src="{{ url_for('page_image', title_id=title_id, page_num=p.page) }}"></li>
 {% endfor %}
 </ul>
 </div>

@@ -247,6 +247,24 @@ def slide(title_id):
     # Pass volume and page details to Unslider template
     return render_template("slider.html", title_id=title_id, volume=volume, pages=pages)
 
+# Test Tiny Slider display
+@app.route('/tinyslide/<int:title_id>')
+def tinyslide(title_id):
+    """Test template for Unslider display, displays Title title_id"""
+
+    # Get title information
+    try:
+        volume = Volume.get(Volume.id == title_id)
+    except Volume.DoesNotExist:
+        abort(404)
+
+    # Get list of images for this title
+    pages = Image.select(Image, Volume).join(Volume).where(
+        Volume.id == title_id).order_by(Image.page)
+
+    # Pass volume and page details to Tiny Slider template
+    return render_template("tinyslider.html", title_id=title_id, volume=volume, pages=pages)
+
 # Error handling
 
 @app.errorhandler(404)
