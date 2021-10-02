@@ -1,7 +1,7 @@
 FROM python:alpine
 MAINTAINER Kyubi Systems 2020
 
-LABEL version="1.0.6" maintainer="Kyubi Systems <admin@kyubi.co.uk>"
+LABEL version="1.0.7" maintainer="Kyubi Systems <admin@kyubi.co.uk>"
 
 WORKDIR /usr/src/app
 

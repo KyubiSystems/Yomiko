@@ -14,7 +14,6 @@
 
 .thumbtitle { height: 180px; font-size: 10px; line-height: 90%; text-overflow: ellipsis; }
 	      
-
 .tag { color: #fff;
        padding: 4px;
        background-color: #88d;
@@ -23,15 +22,15 @@
 .mangacontainer { 
 		  margin-left: auto;
 		  margin-right: auto;
-		  border: 1px solid black; 
+		  border: 1px solid black;
 		  width: 1024px;
                 }
 
 .manga { text-align: center;
 	 position: relative; 
 	 overflow: auto; }
-    .manga li { list-style: none; }
-        .manga ul li { float: left; }
+.manga li { list-style: none; }
+.manga ul li { float: left; }
 
 .pageholder { width: 100%;
 	      background-color: #000;
@@ -43,3 +42,11 @@
 	width: auto;
 	height: auto;
       	}
+
+	 a.button {
+		-webkit-appearance: button;
+		-moz-appearance: button;
+		appearance: button;
+		text-decoration: none;
+		color: initial;
+	}

@@ -1,24 +1,28 @@
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html lang="en">
-<head>
+<head profile="http://www.w3.org/2005/10/profile">
 <meta charset="utf-8">
 <title>{{ volume.title }}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="description" content="Yomiko: {{ volume.title }}">
 <meta name="author" content="Application code (C) Kyubi Systems 2021">
+<!-- Font Awesome CDN -->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <!-- Tiny Slider CSS-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.3/tiny-slider.css">
 <!--[if (lt IE 9)]><script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.3/min/tiny-slider.helper.ie8.js"></script><![endif]-->
 <!-- Fullscreen library -->
 <script src="{{ url_for('static', filename='js/fullscreen.js') }}"></script>
 <!-- Yomiko CSS -->
-<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"> -->
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
 <body>
 <div class="mangacontainer">
+    <A class="button" href="{{ url_for('title', title_id=title_id) }}"><i class="fa fa-angle-up fa-3x" aria-hidden="true"></i></A>
 <div class="manga">
 {% for p in pages %}
-<div class="item"><img class="tns-lazy-img" data-src="{{ url_for('page_image', title_id=title_id, page_num=p.page) }}"></div>
+<div class="item2"><img class="tns-lazy-img" data-src="{{ url_for('page_image', title_id=title_id, page_num=p.page) }}" height="100%"></div>
 {% endfor %}
 </div>
 </div>
@@ -30,7 +34,7 @@ var slider = tns({
       lazyload: true,
       center: true,
       nav: false,
-      controlsText: ["<",">"],
+      controlsText: ['<i class="fa fa-angle-left fa-3x" aria-hidden="true"></i>','<i class="fa fa-angle-right fa-3x" aria-hidden="true"></i>'],
       arrowKeys: true,
       autoplay: false
     });
