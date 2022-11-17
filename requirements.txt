@@ -1,8 +1,8 @@
 astroid>=2.3.3
 Click>=7.0
 Flask==1.1.1
-gevent==1.4.0
-greenlet==0.4.15
+gevent==22.10.2
+greenlet==2.0.1
 isort>=4.3.21
 itsdangerous>=1.1.0
 Jinja2>=2.10.3
@@ -11,12 +11,12 @@ MarkupSafe>=1.1.1
 mccabe>=0.6.1
 natsort>=6.2.0
 peewee>=3.12.0
-Pillow>=7.1.0
+Pillow==9.3.0
 progressbar>=2.5
 pylint>=2.4.4
 pyparsing>=2.4.7
 rarfile>=3.1
 six>=1.13.0
-typed-ast>=1.4.0
+typed-ast>=1.5.4
 Werkzeug>=0.16.0
 wrapt>=1.11.2
