@@ -23,3 +23,71 @@ Hotkeys handling for keyboard shortcuts
 ---------------------------------------
 
 https://github.com/tzuryby/jquery.hotkeys
+
+Notes
+-----
+
+http://images.clipartpanda.com/eyeglasses-clip-art-artfavor_eyeglasses_3_black_white_line_art_scalable_vector_graphics_svg-2555px.png
+http://img.firmoo.com/p/1014/middle-unisex-plastic-eyeglasses-5330.pn
+
+Replace slider with JS Swiper
+http://www.idangero.us/sliders/swiper/
+
+Zip thumbnails and read on the fly? Javascript JSZip
+https://stuk.github.io/jszip/documentation/examples.html
+
+** Isotope layouts? Filter and sort magical layouts for thumbnails
+http://isotope.metafizzy.co/
+
+http://stackoverflow.com/questions/1441967/python-imaging-alternatives
+
+http://stackoverflow.com/questions/11689745/resize-images-as-viewport-resizes-without-sides-being-cut-off
+full screen option in JS
+prev, next page links using overlying div regions, z-index=1
+key bindings to left, right arrows
+Screen orientation: https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/Managing_screen_orientation
+
+unslider + lazy loading: https://github.com/idiot/unslider/issues/158
+http://jsfiddle.net/6V7tv/
+
+Pagination
+https://pythonhosted.org/Flask-paginate/
+http://flask-peewee.readthedocs.org/en/latest/utils.html
+http://flask-peewee.readthedocs.org/en/latest/api.html#object_list
+
+Lazy unload
+https://github.com/morr/jquery.appear
+http://morr.github.io/appear.htm
+
+7zip support
+brew install xz
+pip install pylzma
+https://github.com/fancycode/pylzma
+http://www.joachim-bauch.de/2011/01/17/pylzma-0-4-3-released/
+
+ubunchu
+http://seotch.wordpress.com/2010/09/05/ubunchu07/
+
+Local file storage, extend to Amazon S3
+https://github.com/smore-inc/tinys3
+
+Mobile/iPad interface
+Multiprocessing for thumbnail construction
+http://www.bootstrapzero.com/bootstrap-templates
+
+
+
+Lazy loading for pages. Define volume as one page, anchors to page.
+=>HTML5/CSS image viewer (slider)
+AJAX image loading on mobile-compatible slider
+http://cubiq.org/swipeview <-
+Fullscreen + arrow keys
+https://github.com/bitbonsai/SwipeView/commit/641cc3aee4ba1c62dd8c0ad6039158a69433044c
+
+Slick carousel
+http://kenwheeler.github.io/slick/
+http://www.jsdelivr.com/#!jquery.slick
+
+Support for doujinshi.org API?
+http://www.doujinshi.org/API_MANUAL.txt
+REST API for external queries?
