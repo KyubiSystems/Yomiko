@@ -20,7 +20,7 @@ pylint==2.17.3
 pyparsing==3.0.9
 rarfile==4.0
 tomlkit==0.11.7
-werkzeug==2.3.3
+werkzeug==3.0.1
 wrapt==1.15.0
 zope-event==4.6
 zope-interface==6.0
